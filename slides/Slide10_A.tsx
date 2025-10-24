@@ -41,11 +41,11 @@ export const Slide10_A: React.FC<SlideProps> = ({ isActive }) => {
               animate={isActive ? "visible" : "hidden"}
             >
               <motion.div variants={itemVariants}>
-                <h2 className="text-8xl font-bold tracking-tighter text-slate-900 mb-4 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>El Motor de Crecimiento Proactivo</h2>
-                <p className="text-3xl text-slate-600 mb-12 text-center">Convierta el mercado entero en su base de datos de clientes potenciales.</p>
+                <h2 className="text-9xl font-bold tracking-tighter text-slate-900 mb-6 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>El Motor de Crecimiento Proactivo</h2>
+                <p className="text-4xl text-slate-600 mb-16 text-center font-light">Convierta el mercado entero en su base de datos de clientes potenciales.</p>
               </motion.div>
-              <motion.div 
-                className="grid grid-cols-4 gap-10"
+              <motion.div
+                className="grid grid-cols-4 gap-12"
                 variants={{
                   visible: {
                     transition: { staggerChildren: 0.15 }
@@ -53,16 +53,21 @@ export const Slide10_A: React.FC<SlideProps> = ({ isActive }) => {
                 }}
               >
                   {steps.map((step, i) => (
-                      <motion.div 
+                      <motion.div
                           key={step.title}
-                          className="bg-slate-50/50 rounded-xl p-8 border border-slate-200 text-center flex flex-col items-center hover:bg-white hover:shadow-lg transition-all"
+                          className="bg-slate-50/50 rounded-2xl p-10 border-2 border-slate-200 text-center flex flex-col items-center hover:bg-white hover:shadow-xl transition-all"
                           variants={itemVariants}
+                          whileHover={{ scale: 1.05, y: -5 }}
                       >
-                          <div className="w-24 h-24 flex items-center justify-center bg-cyan-500/10 text-cyan-500 rounded-lg mb-8">
+                          <motion.div
+                            className="w-28 h-28 flex items-center justify-center bg-gradient-to-br from-cyan-500/10 to-blue-600/10 text-cyan-500 rounded-xl mb-10"
+                            animate={{ rotate: [0, 5, 0] }}
+                            transition={{ duration: 3, repeat: Infinity, delay: i * 0.2 }}
+                          >
                               {step.icon}
-                          </div>
-                          <h3 className="text-3xl font-bold text-slate-800 mb-5">{step.title}</h3>
-                          <p className="text-xl text-slate-600 flex-grow">{step.desc}</p>
+                          </motion.div>
+                          <h3 className="text-4xl font-bold text-slate-800 mb-6">{step.title}</h3>
+                          <p className="text-2xl text-slate-600 flex-grow leading-relaxed">{step.desc}</p>
                       </motion.div>
                   ))}
               </motion.div>

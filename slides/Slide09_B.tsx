@@ -32,11 +32,11 @@ const InboxView = ({ isActive }: { isActive: boolean }) => (
                         >
                             {[{ n: 'TechCorp SL', s: 95, a: true }, { n: 'InnoSolutions SA', s: 92, a: false }].map((lead) => (
                                 <motion.tr key={lead.n} variants={itemVariants} className={`hover:bg-slate-50/40 ${lead.a ? 'bg-cyan-500/5' : ''}`}>
-                                    <td className="p-5">
-                                        <div className="font-semibold text-slate-900 text-3xl">{lead.n}</div>
+                                    <td className="p-6">
+                                        <div className="font-bold text-slate-900 text-4xl">{lead.n}</div>
                                     </td>
-                                    <td className="p-5 font-bold text-cyan-500 text-5xl">{lead.s}</td>
-                                    <td className="p-5 text-right"><span className={`px-4 py-2 rounded-full text-xl font-semibold bg-red-500/10 text-red-600`}>ALTA</span></td>
+                                    <td className="p-6 font-bold text-cyan-500 text-6xl">{lead.s}</td>
+                                    <td className="p-6 text-right"><span className={`px-6 py-3 rounded-full text-2xl font-bold bg-red-500/10 text-red-600`}>ALTA</span></td>
                                 </motion.tr>
                             ))}
                         </motion.tbody>
@@ -44,16 +44,16 @@ const InboxView = ({ isActive }: { isActive: boolean }) => (
                 </div>
             </div>
             <div className="col-span-2">
-                 <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm h-full">
-                    <h3 className="font-bold text-slate-900 text-2xl mb-3">TechCorp SL</h3>
-                    <div className="bg-slate-100/50 p-4 rounded-md">
-                        <p className="font-semibold text-slate-500 text-lg">Análisis IA (API Externa)</p>
-                        <p className="text-slate-700 text-xl mt-3"><strong className="font-semibold">Fuente:</strong> Registro Mercantil</p>
-                        <p className="text-slate-700 text-xl"><strong className="font-semibold">Facturación 2024:</strong> €5.2M</p>
-                        <p className="text-slate-700 text-xl"><strong className="font-semibold">Decisor Clave:</strong> Juan Pérez (CEO)</p>
-                        <p className="text-green-600 text-xl font-bold mt-3"><strong className="font-semibold text-slate-600">Viabilidad Económica:</strong> ALTA</p>
+                 <div className="bg-white p-7 rounded-xl border-2 border-slate-200 shadow-sm h-full">
+                    <h3 className="font-bold text-slate-900 text-3xl mb-5">TechCorp SL</h3>
+                    <div className="bg-slate-100/50 p-6 rounded-lg">
+                        <p className="font-bold text-slate-500 text-2xl mb-3">Análisis IA (API Externa)</p>
+                        <p className="text-slate-700 text-2xl mt-2"><strong className="font-bold">Fuente:</strong> Registro Mercantil</p>
+                        <p className="text-slate-700 text-2xl mt-2"><strong className="font-bold">Facturación 2024:</strong> €5.2M</p>
+                        <p className="text-slate-700 text-2xl mt-2"><strong className="font-bold">Decisor Clave:</strong> Juan Pérez (CEO)</p>
+                        <p className="text-green-600 text-2xl font-bold mt-4"><strong className="font-bold text-slate-600">Viabilidad Económica:</strong> ALTA</p>
                     </div>
-                    <p className="mt-4 text-slate-500 text-lg"><strong className="font-semibold text-slate-800">Estado:</strong> Pendiente de revisión</p>
+                    <p className="mt-5 text-slate-500 text-2xl"><strong className="font-bold text-slate-800">Estado:</strong> Pendiente de revisión</p>
                 </div>
             </div>
         </motion.div>
@@ -66,25 +66,25 @@ const ProspeccionView = ({isActive} : {isActive: boolean}) => (
         initial="hidden"
         animate={isActive ? "visible" : "hidden"}
     >
-        <motion.h2 variants={itemVariants} className="text-3xl font-bold text-slate-900 mb-6">Campañas de Prospección Activas</motion.h2>
-        <motion.div 
-            className="space-y-5"
+        <motion.h2 variants={itemVariants} className="text-4xl font-bold text-slate-900 mb-8">Campañas de Prospección Activas</motion.h2>
+        <motion.div
+            className="space-y-6"
             variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
         >
             {[
-                { title: "Herencias (BOE)", icon: <Database size={28}/>, results: [{ t: 'Familia Pérez (Madrid)', d: 'Edicto BOE 2025-10-19' }, { t: 'Herederos de A. Gómez (Barcelona)', d: 'Edicto BOE 2025-10-18' }] },
-                { title: "Real Estate (>2M€)", icon: <Home size={28}/>, results: [{ t: 'Transacción Alto Valor (Valencia)', d: 'Registro 2025-10-17' }] }
+                { title: "Herencias (BOE)", icon: <Database size={32}/>, results: [{ t: 'Familia Pérez (Madrid)', d: 'Edicto BOE 2025-10-19' }, { t: 'Herederos de A. Gómez (Barcelona)', d: 'Edicto BOE 2025-10-18' }] },
+                { title: "Real Estate (>2M€)", icon: <Home size={32}/>, results: [{ t: 'Transacción Alto Valor (Valencia)', d: 'Registro 2025-10-17' }] }
             ].map(c => (
-                <motion.div key={c.title} variants={itemVariants} className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
-                    <h3 className="font-bold text-slate-900 text-2xl mb-4 flex items-center gap-4">{c.icon}{c.title}</h3>
-                    <div className="space-y-3">
+                <motion.div key={c.title} variants={itemVariants} className="bg-white p-7 rounded-xl border-2 border-slate-200 shadow-sm">
+                    <h3 className="font-bold text-slate-900 text-3xl mb-5 flex items-center gap-5">{c.icon}{c.title}</h3>
+                    <div className="space-y-4">
                         {c.results.map(r => (
-                            <div key={r.t} className="bg-slate-50/60 p-4 rounded-md flex justify-between items-center">
+                            <div key={r.t} className="bg-slate-50/60 p-5 rounded-lg flex justify-between items-center">
                                 <div>
-                                    <p className="font-semibold text-slate-800 text-xl">{r.t}</p>
-                                    <p className="text-slate-500 text-lg italic">Detectado: {r.d}</p>
+                                    <p className="font-bold text-slate-800 text-2xl">{r.t}</p>
+                                    <p className="text-slate-500 text-xl italic mt-1">Detectado: {r.d}</p>
                                 </div>
-                                <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 px-4 rounded-md text-lg transition-colors">Generar Contacto</button>
+                                <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-4 px-6 rounded-lg text-xl transition-all hover:scale-105">Generar Contacto</button>
                             </div>
                         ))}
                     </div>
@@ -114,16 +114,16 @@ export const Slide09_B: React.FC<SlideProps> = ({ isActive }) => {
                 initial="hidden"
                 animate={isActive ? "visible" : "hidden"}
             >
-                <motion.h2 
+                <motion.h2
                   variants={itemVariants}
-                  className="text-7xl font-bold tracking-tighter text-slate-900 mb-6 text-center" 
+                  className="text-8xl font-bold tracking-tighter text-slate-900 mb-10 text-center"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
                   Dashboard de Oportunidades
                 </motion.h2>
-                <motion.div 
+                <motion.div
                   variants={itemVariants}
-                  className="bg-white rounded-xl shadow-2xl border border-slate-200 flex min-h-[720px] w-full max-w-[1600px]"
+                  className="bg-white rounded-2xl shadow-2xl border-2 border-slate-200 flex min-h-[750px] w-full max-w-[1700px]"
                 >
                     <div className="w-72 bg-slate-50/50 rounded-l-xl p-6 flex flex-col border-r border-slate-200">
                         <div className="font-bold text-4xl text-slate-900 mb-12 tracking-tighter" style={{fontFamily: "'Playfair Display', serif"}}>INTLAW</div>

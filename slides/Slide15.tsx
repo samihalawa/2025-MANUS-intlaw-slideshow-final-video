@@ -64,21 +64,28 @@ interface ModuleCardProps {
 }
 
 const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => (
-    <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 h-full flex flex-col">
-        <h3 className="font-bold text-xl text-slate-800 mb-4">{module.name}</h3>
-        <ul className="space-y-3 text-base text-slate-600 flex-grow">
+    <motion.div
+      className="bg-white rounded-2xl shadow-xl border-2 border-slate-200 p-8 h-full flex flex-col"
+      whileHover={{ scale: 1.02, y: -5 }}
+    >
+        <h3 className="font-bold text-3xl text-slate-800 mb-6">{module.name}</h3>
+        <ul className="space-y-4 text-2xl text-slate-600 flex-grow">
             {module.features.map((feature, i) => (
-                <li key={i} className="flex items-start gap-3">
-                    {feature.icon}
+                <motion.li
+                  key={i}
+                  className="flex items-start gap-4"
+                  whileHover={{ x: 5 }}
+                >
+                    {React.cloneElement(feature.icon, { size: 20, className: feature.icon.props.className })}
                     <span dangerouslySetInnerHTML={{ __html: feature.text }} />
-                </li>
+                </motion.li>
             ))}
         </ul>
-        <div className="text-right border-t border-slate-200 pt-4 mt-4">
-             <span className="text-slate-500 line-through text-base mr-2">€15,000</span>
-             <span className="font-bold text-2xl text-cyan-600">{module.price}</span>
+        <div className="text-right border-t-2 border-slate-200 pt-5 mt-5">
+             <span className="text-slate-500 line-through text-2xl mr-3">€15,000</span>
+             <span className="font-bold text-4xl text-cyan-600">{module.price}</span>
         </div>
-    </div>
+    </motion.div>
 );
 
 export const Slide15: React.FC<SlideProps> = ({ isActive }) => {
@@ -91,40 +98,53 @@ export const Slide15: React.FC<SlideProps> = ({ isActive }) => {
         className="w-full"
       >
         <motion.div variants={itemVariants}>
-          <h2 className="text-6xl font-bold tracking-tighter text-slate-900 mb-2 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Inversión Estratégica</h2>
-          <p className="text-xl text-slate-600 mb-6 text-center max-w-4xl mx-auto">Una estructura de valor transparente con una oferta de asociación preferente.</p>
+          <h2 className="text-8xl font-bold tracking-tighter text-slate-900 mb-4 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Inversión Estratégica</h2>
+          <p className="text-3xl text-slate-600 mb-10 text-center max-w-5xl mx-auto font-light">Una estructura de valor transparente con una oferta de asociación preferente.</p>
         </motion.div>
-        
-        <motion.div 
-          className="space-y-6"
+
+        <motion.div
+          className="space-y-8"
           variants={itemVariants}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {modules.map((module) => (
                   <ModuleCard key={module.name} module={module} />
               ))}
           </div>
           
-          <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
+          <motion.div
+            className="bg-white rounded-2xl shadow-2xl border-2 border-slate-200 p-10"
+            whileHover={{ scale: 1.01 }}
+          >
               <div className="grid grid-cols-3 items-center">
                   <div className="col-span-2">
-                      <p className="font-bold text-xl text-slate-800">INVERSIÓN TOTAL (Oferta FastDeal)</p>
-                      <p className="text-base text-slate-500">Incluye 4 módulos base y módulos premium de bonificación.</p>
+                      <p className="font-bold text-3xl text-slate-800">INVERSIÓN TOTAL (Oferta FastDeal)</p>
+                      <p className="text-2xl text-slate-500 mt-2">Incluye 4 módulos base y módulos premium de bonificación.</p>
                   </div>
                   <div className="text-right">
-                       <p className="text-xl text-slate-500 line-through">€75,000</p>
-                       <p className="text-5xl font-bold text-cyan-600">€48,000</p>
+                       <p className="text-3xl text-slate-500 line-through">€75,000</p>
+                       <motion.p
+                         className="text-7xl font-bold text-cyan-600"
+                         animate={{ scale: [1, 1.05, 1] }}
+                         transition={{ duration: 2, repeat: Infinity }}
+                       >
+                         €48,000
+                       </motion.p>
                   </div>
               </div>
-               <div className="border-t border-slate-200 mt-4 pt-4 text-center">
-                   <p className="text-2xl font-bold text-green-600">AHORRO TOTAL: €27,000</p>
-                   <p className="text-base text-green-700">(20% dto. + €15,000 en módulos premium)</p>
-                   <div className="inline-flex items-center gap-2 mt-2 text-sm font-semibold bg-slate-800 text-white px-3 py-1 rounded-full">
-                        <Star className="text-yellow-400" size={16} fill="currentColor" />
+               <div className="border-t-2 border-slate-200 mt-6 pt-6 text-center">
+                   <p className="text-4xl font-bold text-green-600">AHORRO TOTAL: €27,000</p>
+                   <p className="text-2xl text-green-700 mt-2">(20% dto. + €15,000 en módulos premium)</p>
+                   <motion.div
+                     className="inline-flex items-center gap-3 mt-4 text-xl font-bold bg-slate-800 text-white px-6 py-3 rounded-full"
+                     animate={{ boxShadow: ["0 0 0 0px rgba(100,116,139,0.4)", "0 0 0 10px rgba(100,116,139,0)", "0 0 0 0px rgba(100,116,139,0)"] }}
+                     transition={{ duration: 2, repeat: Infinity }}
+                   >
+                        <Star className="text-yellow-400" size={20} fill="currentColor" />
                         <span>Válido hasta 30 Oct 2025</span>
-                   </div>
+                   </motion.div>
                </div>
-          </div>
+          </motion.div>
         </motion.div>
       </motion.div>
     </SlideWrapper>

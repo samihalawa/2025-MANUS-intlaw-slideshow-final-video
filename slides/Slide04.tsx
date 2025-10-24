@@ -55,26 +55,26 @@ export const Slide04: React.FC<SlideProps> = ({ isActive }) => {
         initial="hidden"
         animate={isActive ? 'visible' : 'hidden'}
       >
-        <motion.h2 
+        <motion.h2
           variants={itemVariants}
-          className="text-8xl font-bold tracking-tighter text-slate-900" 
+          className="text-9xl font-bold tracking-tighter text-slate-900"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
           Visión: INTLAW AI
         </motion.h2>
-        <motion.p 
+        <motion.p
           variants={itemVariants}
-          className="mt-6 text-4xl text-slate-600"
+          className="mt-8 text-5xl text-slate-600 font-light"
         >
           Un ecosistema legal inteligente y proactivo.
         </motion.p>
-        
-        <motion.div 
-          className="mt-16 w-full max-w-7xl"
+
+        <motion.div
+          className="mt-20 w-full max-w-7xl"
           variants={itemVariants}
         >
-          <motion.h3 
-              className="text-3xl font-semibold text-slate-700 mb-10 tracking-wider uppercase"
+          <motion.h3
+              className="text-4xl font-bold text-slate-700 mb-12 tracking-wider uppercase"
               variants={itemVariants}
           >
               Dashboard de Impacto
@@ -91,19 +91,20 @@ export const Slide04: React.FC<SlideProps> = ({ isActive }) => {
                   const numberValue = isAnimatable ? parseInt(stat.value.replace(/[^0-9]/g, '')) : 0;
                   
                   return (
-                      <motion.div 
-                        key={stat.label} 
-                        className="bg-slate-50/50 rounded-xl p-8 border border-slate-200 shadow-lg flex flex-col items-center justify-center hover:bg-white transition-colors duration-300"
-                        variants={{ hidden: { opacity: 0, scale: 0.95, y: 20 }, visible: { opacity: 1, scale: 1, y: 0 } }}
+                      <motion.div
+                        key={stat.label}
+                        className="bg-slate-50/50 rounded-2xl p-10 border-2 border-slate-200 shadow-xl flex flex-col items-center justify-center hover:bg-white transition-all duration-300"
+                        variants={{ hidden: { opacity: 0, scale: 0.9, y: 30 }, visible: { opacity: 1, scale: 1, y: 0 } }}
+                        whileHover={{ scale: 1.05, borderColor: "rgba(6, 182, 212, 0.5)" }}
                       >
-                          <motion.div 
-                            className="text-cyan-500 mb-8"
-                            animate={{ scale: [1, 1.1, 1], y: [0, -5, 0] }}
+                          <motion.div
+                            className="text-cyan-500 mb-10"
+                            animate={{ scale: [1, 1.15, 1], y: [0, -8, 0] }}
                             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
                           >
                             {stat.icon}
                           </motion.div>
-                          <div className="text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">
+                          <div className="text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">
                               {stat.value.startsWith('>') && '>'}
                               {stat.value.startsWith('+') && '+'}
                                {stat.value.startsWith('<') && '<'}
@@ -111,7 +112,7 @@ export const Slide04: React.FC<SlideProps> = ({ isActive }) => {
                               {stat.value.endsWith('%') && '%'}
                               {stat.value.endsWith('s') && 's'}
                           </div>
-                          <div className="mt-6 text-2xl font-semibold text-slate-600 uppercase tracking-widest">{stat.label}</div>
+                          <div className="mt-8 text-3xl font-bold text-slate-600 uppercase tracking-widest">{stat.label}</div>
                       </motion.div>
                   );
               })}

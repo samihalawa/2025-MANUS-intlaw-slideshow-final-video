@@ -57,29 +57,36 @@ const itemVariants: Variants = {
 };
 
 const NewLeadCard = ({ isActive }: { isActive: boolean }) => (
-    <motion.div 
+    <motion.div
         variants={dashboardVariants}
         initial="hidden"
         animate={isActive ? "visible" : "hidden"}
-        className="bg-white rounded-2xl shadow-2xl border border-slate-200 p-10 space-y-8 h-full flex flex-col justify-center"
+        className="bg-white rounded-3xl shadow-2xl border-2 border-slate-200 p-12 space-y-10 h-full flex flex-col justify-center"
+        whileHover={{ scale: 1.02 }}
     >
         <motion.div variants={itemVariants}>
             <div className="flex justify-between items-center">
-                <h3 className="text-4xl font-bold text-slate-900">Nuevo Lead Cualificado</h3>
-                <span className="text-xl font-semibold bg-green-500/10 text-green-600 px-4 py-2 rounded-full">Recibido</span>
+                <h3 className="text-5xl font-bold text-slate-900">Nuevo Lead Cualificado</h3>
+                <motion.span
+                  className="text-2xl font-bold bg-green-500/10 text-green-600 px-6 py-3 rounded-full border-2 border-green-500/20"
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  Recibido
+                </motion.span>
             </div>
-             <p className="text-2xl text-slate-500 mt-2">Caso ID-4588</p>
-        </motion.div>
-        
-        <motion.div variants={itemVariants} className="bg-slate-50/70 p-6 rounded-lg border border-slate-200 space-y-3">
-            <p className="text-2xl"><strong className="font-semibold text-slate-600 w-32 inline-block">Empresa:</strong> Compañía XYZ S.L.</p>
-            <p className="text-2xl"><strong className="font-semibold text-slate-600 w-32 inline-block">Contacto:</strong> +34 6XX XXX XXX</p>
-            <p className="text-2xl"><strong className="font-semibold text-slate-600 w-32 inline-block">Tipo:</strong> Contrato Mercantil</p>
+             <p className="text-3xl text-slate-500 mt-3 font-medium">Caso ID-4588</p>
         </motion.div>
 
-        <motion.div variants={itemVariants} className="bg-cyan-500/5 p-6 rounded-lg border border-cyan-500/30">
-            <p className="font-bold text-cyan-800 text-2xl mb-3 flex items-center gap-3"><Target size={24} />Resumen por IA:</p>
-            <p className="text-slate-600 text-xl leading-relaxed">
+        <motion.div variants={itemVariants} className="bg-slate-50/70 p-8 rounded-xl border-2 border-slate-200 space-y-4">
+            <p className="text-3xl"><strong className="font-bold text-slate-600 w-40 inline-block">Empresa:</strong> Compañía XYZ S.L.</p>
+            <p className="text-3xl"><strong className="font-bold text-slate-600 w-40 inline-block">Contacto:</strong> +34 6XX XXX XXX</p>
+            <p className="text-3xl"><strong className="font-bold text-slate-600 w-40 inline-block">Tipo:</strong> Contrato Mercantil</p>
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="bg-gradient-to-br from-cyan-500/5 to-blue-600/5 p-8 rounded-xl border-2 border-cyan-500/30">
+            <p className="font-bold text-cyan-800 text-3xl mb-4 flex items-center gap-4"><Target size={28} />Resumen por IA:</p>
+            <p className="text-slate-700 text-2xl leading-relaxed">
                 El Agente IA ha extraído los datos clave del documento adjunto: Contrato mercantil con un valor estimado de 250k€. Se han identificado cláusulas de confidencialidad y condiciones de pago a 90 días. Puntuación de viabilidad: 95/100 (ALTA). Se recomienda asignación inmediata a socio senior.
             </p>
         </motion.div>
@@ -100,17 +107,17 @@ export const Slide08_B: React.FC<SlideProps> = ({ isActive }) => {
             animate={isActive ? "visible" : "hidden"}
             className="w-full"
           >
-            <motion.h2 
-                variants={itemVariants} 
-                className="text-7xl font-bold tracking-tighter text-slate-900 mb-3 text-center" 
+            <motion.h2
+                variants={itemVariants}
+                className="text-8xl font-bold tracking-tighter text-slate-900 mb-5 text-center"
                 style={{ fontFamily: "'Playfair Display', serif" }}
             >
                 Captación Multicanal y Cualificación IA
             </motion.h2>
-            <motion.p variants={itemVariants} className="text-3xl text-slate-600 mb-8 text-center">De WhatsApp a un caso cualificado en segundos.</motion.p>
+            <motion.p variants={itemVariants} className="text-4xl text-slate-600 mb-10 text-center font-light">De WhatsApp a un caso cualificado en segundos.</motion.p>
           </motion.div>
-            <motion.div 
-              className="grid grid-cols-2 gap-16 items-center"
+            <motion.div
+              className="grid grid-cols-2 gap-20 items-center"
               variants={containerVariants}
               initial="hidden"
               animate={isActive ? "visible" : "hidden"}

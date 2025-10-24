@@ -32,34 +32,35 @@ export const Slide14: React.FC<SlideProps> = ({ isActive }) => {
                 initial="hidden"
                 animate={isActive ? "visible" : "hidden"}
             >
-                <motion.h2 
+                <motion.h2
                     variants={itemVariants}
-                    className="text-7xl font-bold tracking-tighter text-slate-900 mb-12 text-center" 
+                    className="text-9xl font-bold tracking-tighter text-slate-900 mb-16 text-center"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                 >
                 Beneficios Clave
                 </motion.h2>
-                <motion.div 
-                    className="grid grid-cols-2 gap-8"
+                <motion.div
+                    className="grid grid-cols-2 gap-12"
                     variants={{ visible: { transition: { staggerChildren: 0.15 }}}}
                 >
                     {benefits.map((benefit, i) => (
-                        <motion.div 
-                            key={benefit.title} 
+                        <motion.div
+                            key={benefit.title}
                             variants={itemVariants}
-                            className="bg-slate-50/50 rounded-xl p-6 border border-slate-200 hover:border-cyan-500/50 hover:bg-white transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl"
+                            className="bg-slate-50/50 rounded-2xl p-10 border-2 border-slate-200 hover:border-cyan-500/50 hover:bg-white transition-all duration-300"
+                            whileHover={{ y: -8, scale: 1.02, boxShadow: "0 20px 50px rgba(0,0,0,0.15)" }}
                         >
-                            <div className="flex items-center gap-4 mb-4">
+                            <div className="flex items-center gap-6 mb-6">
                                 <motion.div
-                                    className="w-16 h-16 flex-shrink-0 flex items-center justify-center bg-cyan-500/10 text-cyan-500 rounded-lg"
-                                    animate={{ scale: [1, 1.05, 1] }}
+                                    className="w-20 h-20 flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-cyan-500/10 to-blue-600/10 text-cyan-500 rounded-xl"
+                                    animate={{ scale: [1, 1.1, 1], rotate: [0, 5, 0] }}
                                     transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: i * 0.5 }}
                                 >
                                     {benefit.icon}
                                 </motion.div>
-                                <h3 className="text-3xl font-bold text-slate-900">{benefit.title}</h3>
+                                <h3 className="text-4xl font-bold text-slate-900">{benefit.title}</h3>
                             </div>
-                            <p className="text-xl text-slate-600 pl-20">{benefit.desc}</p>
+                            <p className="text-2xl text-slate-600 pl-26 leading-relaxed">{benefit.desc}</p>
                         </motion.div>
                     ))}
                 </motion.div>

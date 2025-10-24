@@ -30,33 +30,39 @@ const itemVariants = {
 };
 
 const Card = ({ title, points, icon, isActive }: { title: string; points: { text: React.ReactNode }[]; icon: React.ReactNode; isActive: boolean; }) => (
-    <motion.div 
-        className="bg-slate-50/50 rounded-xl p-8 border border-slate-200 flex flex-col h-full"
+    <motion.div
+        className="bg-slate-50/50 rounded-2xl p-10 border-2 border-slate-200 flex flex-col h-full"
         variants={itemVariants}
+        whileHover={{ scale: 1.02, borderColor: "rgba(6, 182, 212, 0.3)" }}
     >
-        <motion.div 
-            className="flex items-center gap-6 mb-8"
+        <motion.div
+            className="flex items-center gap-8 mb-10"
             variants={{
                 hidden: { opacity: 0 },
                 visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
             }}
         >
-            <motion.div variants={itemVariants} className="w-20 h-20 bg-cyan-500/10 text-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+            <motion.div
+                variants={itemVariants}
+                className="w-24 h-24 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 text-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0"
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 3, repeat: Infinity }}
+            >
                 {icon}
             </motion.div>
-            <motion.h3 variants={itemVariants} className="text-4xl font-bold text-slate-800">{title}</motion.h3>
+            <motion.h3 variants={itemVariants} className="text-5xl font-bold text-slate-800">{title}</motion.h3>
         </motion.div>
-        <motion.ul 
-            className="space-y-4 text-2xl text-slate-700 flex-grow"
+        <motion.ul
+            className="space-y-6 text-3xl text-slate-700 flex-grow"
             variants={{ visible: { transition: { staggerChildren: 0.1 }}}}
         >
             {points.map((point, index) => (
-                <motion.li 
-                    key={index} 
-                    className="flex items-start gap-4"
+                <motion.li
+                    key={index}
+                    className="flex items-start gap-5"
                     variants={itemVariants}
                 >
-                    <CheckCircle className="w-8 h-8 text-green-500 mt-1 flex-shrink-0" />
+                    <CheckCircle className="w-10 h-10 text-green-500 mt-1 flex-shrink-0" />
                     <span>{point.text}</span>
                 </motion.li>
             ))}
@@ -73,11 +79,11 @@ export const Slide03_Analysis: React.FC<SlideProps> = ({ isActive }) => {
               animate={isActive ? "visible" : "hidden"}
             >
               <motion.div variants={itemVariants}>
-                <h2 className="text-8xl font-bold tracking-tighter text-slate-900 mb-4 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Una Solución a su Medida</h2>
-                <p className="text-3xl text-slate-600 mb-12 text-center">Hemos escuchado sus desafíos y diseñado una respuesta directa.</p>
+                <h2 className="text-9xl font-bold tracking-tighter text-slate-900 mb-6 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Una Solución a su Medida</h2>
+                <p className="text-4xl text-slate-600 mb-16 text-center">Hemos escuchado sus desafíos y diseñado una respuesta directa.</p>
               </motion.div>
-              <motion.div 
-                className="grid grid-cols-2 gap-10"
+              <motion.div
+                className="grid grid-cols-2 gap-12"
                 variants={{ visible: { transition: { staggerChildren: 0.2 }}}}
               >
                 <Card title="Para el Área Legal y Estrategia (Ignacio)" points={ignacioPoints} icon={<Target size={40}/>} isActive={isActive} />

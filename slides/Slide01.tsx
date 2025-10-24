@@ -52,22 +52,30 @@ export const Slide01: React.FC<SlideProps> = ({ isActive }) => {
             <Scale className="w-28 h-28 text-cyan-500" strokeWidth={1.5}/>
           </motion.div>
         </motion.div>
-        <motion.h1 variants={itemVariants} className="text-[14rem] leading-none font-bold tracking-tighter" style={{ fontFamily: "'Playfair Display', serif" }}>
+        <motion.h1
+          variants={itemVariants}
+          className="text-[15rem] leading-none font-bold tracking-tighter"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">INTLAW</span>
           <span className="text-slate-800"> AI</span>
         </motion.h1>
-        <motion.p variants={itemVariants} className="mt-8 text-6xl text-slate-700 font-light tracking-wide">
+        <motion.p
+          variants={itemVariants}
+          className="mt-10 text-7xl text-slate-700 font-light tracking-wide"
+        >
           La Práctica Legal, Reinventada.
         </motion.p>
-        <motion.div 
+        <motion.div
           variants={itemVariants}
-          className="mt-20 inline-block bg-slate-100/50 border border-slate-200 rounded-lg px-16 py-6"
+          className="mt-24 inline-block bg-slate-100/50 border-2 border-slate-200 rounded-xl px-20 py-8"
+          whileHover={{ scale: 1.05 }}
         >
           <motion.div
             animate={{
               boxShadow: [
                 "0 0 0 0px rgba(56, 189, 248, 0.3)",
-                "0 0 0 20px rgba(56, 189, 248, 0)",
+                "0 0 0 25px rgba(56, 189, 248, 0)",
                 "0 0 0 0px rgba(56, 189, 248, 0)"
               ]
             }}
@@ -77,10 +85,10 @@ export const Slide01: React.FC<SlideProps> = ({ isActive }) => {
               ease: "easeInOut"
             }}
           >
-            <p className="text-2xl font-semibold tracking-widest uppercase text-cyan-500">Propuesta de Colaboración</p>
+            <p className="text-3xl font-bold tracking-widest uppercase text-cyan-500">Propuesta de Colaboración</p>
           </motion.div>
         </motion.div>
-        <div className="absolute bottom-[-120px] left-1/2 -translate-x-1/2 text-sm text-slate-500">
+        <div className="absolute bottom-[-120px] left-1/2 -translate-x-1/2 text-lg text-slate-500 font-medium">
           AGENTS AI Limited · 2025
         </div>
       </motion.div>

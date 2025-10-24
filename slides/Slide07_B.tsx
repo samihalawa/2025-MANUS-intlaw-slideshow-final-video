@@ -57,20 +57,20 @@ const ChatbotMockup = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-      <div className="p-5 bg-slate-100/80 border-b border-slate-200 flex items-center gap-5">
-        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white">
-          <Bot size={36} />
+    <div className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl border-2 border-slate-200 overflow-hidden">
+      <div className="p-6 bg-slate-100/80 border-b-2 border-slate-200 flex items-center gap-6">
+        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg">
+          <Bot size={40} />
         </div>
         <div>
-          <div className="font-bold text-slate-900 text-3xl">INTLAW AI Assistant</div>
-          <div className="text-xl text-green-600 font-semibold flex items-center gap-2">
-            <span className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+          <div className="font-bold text-slate-900 text-4xl">INTLAW AI Assistant</div>
+          <div className="text-2xl text-green-600 font-semibold flex items-center gap-3">
+            <span className="w-4 h-4 bg-green-500 rounded-full animate-pulse"></span>
             Online
           </div>
         </div>
       </div>
-      <div id="chat-container" className="p-8 space-y-5 h-[450px] bg-white/50 overflow-y-auto scroll-smooth">
+      <div id="chat-container" className="p-10 space-y-6 h-[500px] bg-white/50 overflow-y-auto scroll-smooth">
         <AnimatePresence>
           {messages.map((msg, i) => {
             if (msg.type === 'upload_action') {
@@ -84,14 +84,14 @@ const ChatbotMockup = () => {
                   animate={{ y: 0, opacity: 1 }}
                   className={`flex flex-col ${msg.from === 'user' ? 'items-end' : 'items-start'}`}
                 >
-                  <div className={`p-4 rounded-2xl max-w-[85%] text-2xl ${
-                    msg.from === 'bot' 
-                    ? 'bg-slate-200 text-slate-800 rounded-bl-none' 
+                  <div className={`p-5 rounded-2xl max-w-[85%] text-2xl ${
+                    msg.from === 'bot'
+                    ? 'bg-slate-200 text-slate-800 rounded-bl-none'
                     : `bg-cyan-600 text-white rounded-br-none ${msg.type === 'button_click' ? 'opacity-50' : ''}`
                   }`}>
                     <p>{msg.text}</p>
                   </div>
-                  {msg.type === 'upload' && <motion.div initial={{scale:0.9, opacity:0}} animate={{scale:1, opacity:1}} className="mt-4 w-full border-4 border-dashed border-slate-300 rounded-2xl p-8 text-center bg-slate-100/50"><UploadCloud className="w-16 h-16 text-cyan-500 mx-auto mb-4" /><p className="font-bold text-slate-700 text-2xl">Arrastre y suelte sus archivos</p><p className="text-slate-500 text-xl">Carga segura y encriptada</p></motion.div>}
+                  {msg.type === 'upload' && <motion.div initial={{scale:0.9, opacity:0}} animate={{scale:1, opacity:1}} className="mt-5 w-full border-4 border-dashed border-slate-300 rounded-2xl p-10 text-center bg-slate-100/50"><UploadCloud className="w-20 h-20 text-cyan-500 mx-auto mb-5" /><p className="font-bold text-slate-700 text-3xl">Arrastre y suelte sus archivos</p><p className="text-slate-500 text-2xl">Carga segura y encriptada</p></motion.div>}
                 </motion.div>
               );
             }
@@ -99,14 +99,14 @@ const ChatbotMockup = () => {
           })}
         </AnimatePresence>
       </div>
-      <div className="p-5 border-t border-slate-200 bg-slate-100/80">
+      <div className="p-6 border-t-2 border-slate-200 bg-slate-100/80">
         {showButtons ? (
-          <div className="flex gap-4">
-            <button onClick={handleButtonClick} className="flex-1 bg-cyan-600 text-white font-semibold py-4 px-5 rounded-lg text-2xl hover:bg-cyan-700 transition-colors">Sí, proceder</button>
-            <button className="flex-1 bg-slate-300 text-slate-700 font-semibold py-4 px-5 rounded-lg text-2xl hover:bg-slate-400 transition-colors">No, gracias</button>
+          <div className="flex gap-5">
+            <button onClick={handleButtonClick} className="flex-1 bg-cyan-600 text-white font-bold py-5 px-6 rounded-xl text-2xl hover:bg-cyan-700 transition-all hover:scale-105">Sí, proceder</button>
+            <button className="flex-1 bg-slate-300 text-slate-700 font-bold py-5 px-6 rounded-xl text-2xl hover:bg-slate-400 transition-all hover:scale-105">No, gracias</button>
           </div>
         ) : (
-          <input type="text" placeholder="Escriba un mensaje..." className="w-full bg-white border-2 border-slate-300 rounded-lg p-4 text-xl" disabled />
+          <input type="text" placeholder="Escriba un mensaje..." className="w-full bg-white border-2 border-slate-300 rounded-xl p-5 text-2xl" disabled />
         )}
       </div>
     </div>
@@ -133,28 +133,45 @@ const features = [
 export const Slide07_B: React.FC<SlideProps> = ({ isActive }) => {
   return (
     <SlideWrapper className="p-16 justify-center">
-      <motion.div 
-        className="grid grid-cols-2 gap-16 items-center h-full"
+      <motion.div
+        className="grid grid-cols-2 gap-20 items-center h-full"
         variants={containerVariants}
         initial="hidden"
         animate={isActive ? "visible" : "hidden"}
       >
         <motion.div>
-            <motion.div variants={itemVariants} className="inline-block bg-cyan-500/10 text-cyan-600 text-2xl font-bold px-6 py-3 rounded-full mb-6">Módulo 1: Asistente Web IA</motion.div>
-            <motion.h2 variants={itemVariants} className="text-7xl font-bold tracking-tighter text-slate-900 mb-10" style={{ fontFamily: "'Playfair Display', serif" }}>Asistente Web: Automatización de Principio a Fin</motion.h2>
-            <motion.div 
-                className="space-y-6 text-3xl text-slate-700"
+            <motion.div
+              variants={itemVariants}
+              className="inline-block bg-gradient-to-r from-cyan-500/10 to-blue-600/10 text-cyan-600 text-3xl font-bold px-8 py-4 rounded-full mb-8 border-2 border-cyan-500/20"
+              whileHover={{ scale: 1.05 }}
+            >
+              Módulo 1: Asistente Web IA
+            </motion.div>
+            <motion.h2
+              variants={itemVariants}
+              className="text-8xl font-bold tracking-tighter text-slate-900 mb-12"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Asistente Web: Automatización de Principio a Fin
+            </motion.h2>
+            <motion.div
+                className="space-y-7 text-3xl text-slate-700"
                 variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
             >
                 {features.map((feature, i) => (
-                    <motion.div key={i} variants={itemVariants} className="flex items-start gap-5">
-                        <CheckCircle className="text-green-500 mt-1 flex-shrink-0 w-8 h-8"/>
+                    <motion.div
+                      key={i}
+                      variants={itemVariants}
+                      className="flex items-start gap-6"
+                      whileHover={{ x: 5 }}
+                    >
+                        <CheckCircle className="text-green-500 mt-1 flex-shrink-0 w-10 h-10"/>
                         <span dangerouslySetInnerHTML={{ __html: feature.text }} />
                     </motion.div>
                 ))}
             </motion.div>
         </motion.div>
-        <motion.div 
+        <motion.div
           className="flex justify-center"
           variants={{...itemVariants, hidden: {...itemVariants.hidden, x: 20}, visible: {...itemVariants.visible, x: 0}}}
         >

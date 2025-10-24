@@ -60,7 +60,7 @@ const LeadDetailCard = () => (
                 </div>
             </div>
             <div className="border-t border-slate-200 my-3"></div>
-            <p className="text-xl"><strong className="font-semibold text-slate-600">Señal:</strong> Transacción > €2M</p>
+            <p className="text-xl"><strong className="font-semibold text-slate-600">Señal:</strong> Transacción &gt; €2M</p>
             <p className="text-xl"><strong className="font-semibold text-slate-600">Ubicación:</strong> Recoletos, Madrid</p>
             <p className="text-xl"><strong className="font-semibold text-slate-600">Decisor Clave (IA):</strong> Ana García (CEO)</p>
         </div>
