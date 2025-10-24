@@ -5,6 +5,7 @@ import { X, Video } from 'lucide-react';
 interface GridViewProps {
   slides: React.FC<{ isActive: boolean; }>[];
   onClose: () => void;
+  onStartExport: () => void;
 }
 
 // FIX: Define props interface and explicitly type SlideThumbnail as React.FC
@@ -67,19 +68,7 @@ const SlideThumbnail: React.FC<SlideThumbnailProps> = ({ SlideComponent, index }
   );
 };
 
-export const GridView: React.FC<GridViewProps> = ({ slides, onClose }) => {
-  const [isExporting, setIsExporting] = useState(false);
-
-  const handleExport = () => {
-    setIsExporting(true);
-    setTimeout(() => {
-      setIsExporting(false);
-      // In a real app, you might trigger a download or navigate to a new page.
-      // For this simulation, an alert is sufficient.
-      alert('Video export started! (This is a simulation)'); 
-    }, 3000);
-  };
-
+export const GridView: React.FC<GridViewProps> = ({ slides, onClose, onStartExport }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
@@ -103,25 +92,11 @@ export const GridView: React.FC<GridViewProps> = ({ slides, onClose }) => {
         </h2>
         <div className="flex items-center gap-4">
           <button
-            onClick={handleExport}
-            disabled={isExporting}
-            className="flex items-center gap-3 bg-cyan-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-cyan-600 transition-colors disabled:bg-slate-500 disabled:cursor-not-allowed"
+            onClick={onStartExport}
+            className="flex items-center gap-3 bg-cyan-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-cyan-600 transition-colors"
           >
-            {isExporting ? (
-              <>
-                <motion.div
-                  className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                />
-                Exporting...
-              </>
-            ) : (
-              <>
-                <Video size={24} />
-                Export as Video
-              </>
-            )}
+            <Video size={24} />
+            Export as Video
           </button>
           <button
             onClick={onClose}

@@ -1,9 +1,6 @@
 import React from 'react';
 import { SlideWrapper } from '../components/SlideWrapper';
-import {
-  MessageCircle, Mail, FilePlus, FileCheck2, Search, Link,
-  Target, Filter, LayoutDashboard, Users, Wrench, Star
-} from 'lucide-react';
+import { Check, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface SlideProps {
@@ -13,39 +10,27 @@ interface SlideProps {
 const modules = [
   {
     name: 'Módulo 1: Captación e IA',
-    features: [
-      { icon: <MessageCircle size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Asistente Web IA:</strong> Cualifica, cotiza y recoge documentos 24/7.' },
-      { icon: <Mail size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Intake Multicanal:</strong> Centralice captación de web, email, WhatsApp.' },
-      { icon: <FilePlus size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Propuesta Automática:</strong> Genere y envíe propuestas al instante.' }
-    ],
-    price: '€12,000'
+    features: ['Asistente Web IA 24/7', 'Intake Multicanal', 'Propuesta Automática'],
+    price: '€12,000',
+    oldPrice: '€15,000'
   },
   {
     name: 'Módulo 2: Inteligencia Documental',
-    features: [
-      { icon: <FileCheck2 size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Análisis Confiable:</strong> Análisis masivo con precisión garantizada.' },
-      { icon: <Search size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Búsqueda Inteligente:</strong> Detecte riesgos, contradicciones y cláusulas.' },
-      { icon: <Link size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Cita de Fuentes:</strong> Fiabilidad total, cada dato vinculado a su fuente.' }
-    ],
-    price: '€12,000'
+    features: ['Análisis Confiable (0% Alucinaciones)', 'Búsqueda Inteligente de Cláusulas', 'Cita de Fuentes Garantizada'],
+    price: '€12,000',
+    oldPrice: '€15,000'
   },
   {
     name: 'Módulo 3: Motor de Crecimiento IA',
-    features: [
-      { icon: <Target size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Radar de Oportunidades:</strong> Escanee datos públicos y genere clientes.' },
-      { icon: <Filter size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Prospección Quirúrgica:</strong> Flujo constante de oportunidades filtradas.' },
-      { icon: <LayoutDashboard size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Inteligencia Competitiva:</strong> Identifique necesidades legales antes que nadie.' }
-    ],
-    price: '€12,000'
+    features: ['Radar de Oportunidades', 'Prospección Quirúrgica', 'Inteligencia Competitiva'],
+    price: '€12,000',
+    oldPrice: '€15,000'
   },
   {
     name: 'Módulo 4: Copilot y Asociación',
-    features: [
-      { icon: <FilePlus size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Copilot de Redacción:</strong> Redacte documentos desde lenguaje natural.' },
-      { icon: <Users size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Implementación y Adopción:</strong> Formación completa para máximo rendimiento.' },
-      { icon: <Wrench size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Soporte Proactivo:</strong> 12 meses de soporte y optimización.' }
-    ],
-    price: '€12,000'
+    features: ['Copilot de Redacción', 'Implementación y Formación', '12 Meses de Soporte Proactivo'],
+    price: '€12,000',
+    oldPrice: '€15,000'
   }
 ];
 
@@ -64,67 +49,70 @@ interface ModuleCardProps {
 }
 
 const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => (
-    <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 h-full flex flex-col">
-        <h3 className="font-bold text-xl text-slate-800 mb-4">{module.name}</h3>
-        <ul className="space-y-3 text-base text-slate-600 flex-grow">
+    <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-8 h-full flex flex-col hover:border-cyan-400 transition-colors duration-300 transform hover:-translate-y-2">
+        <h3 className="font-bold text-4xl text-slate-800 mb-6">{module.name}</h3>
+        <ul className="space-y-4 text-2xl text-slate-600 flex-grow">
             {module.features.map((feature, i) => (
-                <li key={i} className="flex items-start gap-3">
-                    {feature.icon}
-                    <span dangerouslySetInnerHTML={{ __html: feature.text }} />
+                <li key={i} className="flex items-start gap-4">
+                    <Check size={28} className="flex-shrink-0 text-green-500 mt-1" />
+                    <span>{feature}</span>
                 </li>
             ))}
         </ul>
-        <div className="text-right border-t border-slate-200 pt-4 mt-4">
-             <span className="text-slate-500 line-through text-base mr-2">€15,000</span>
-             <span className="font-bold text-2xl text-cyan-600">{module.price}</span>
+        <div className="text-right border-t border-slate-200 pt-6 mt-8">
+             <span className="text-slate-500 line-through text-3xl mr-4">{module.oldPrice}</span>
+             <span className="font-bold text-5xl text-cyan-600">{module.price}</span>
         </div>
     </div>
 );
 
 export const Slide15: React.FC<SlideProps> = ({ isActive }) => {
   return (
-    <SlideWrapper className="p-8 bg-slate-50/50 justify-center">
+    <SlideWrapper className="p-16 bg-slate-50/50 justify-center">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate={isActive ? 'visible' : 'hidden'}
-        className="w-full"
+        className="w-full max-w-[1600px] mx-auto"
       >
         <motion.div variants={itemVariants}>
-          <h2 className="text-6xl font-bold tracking-tighter text-slate-900 mb-2 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Inversión Estratégica</h2>
-          <p className="text-xl text-slate-600 mb-6 text-center max-w-4xl mx-auto">Estructura de valor transparente con oferta preferente.</p>
+          <h2 className="text-8xl font-bold tracking-tighter text-slate-900 mb-4 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Inversión Estratégica</h2>
+          <p className="text-4xl text-slate-600 mb-12 text-center max-w-5xl mx-auto">Una estructura de valor modular con una oferta preferente para socios estratégicos.</p>
         </motion.div>
         
         <motion.div 
-          className="space-y-6"
-          variants={itemVariants}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          variants={{ visible: { transition: { staggerChildren: 0.1 }}}}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {modules.map((module) => (
-                  <ModuleCard key={module.name} module={module} />
-              ))}
-          </div>
-          
-          <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
-              <div className="grid grid-cols-3 items-center">
-                  <div className="col-span-2">
-                      <p className="font-bold text-xl text-slate-800">INVERSIÓN TOTAL (Oferta FastDeal)</p>
-                      <p className="text-base text-slate-500">Incluye 4 módulos base y bonus premium.</p>
-                  </div>
-                  <div className="text-right">
-                       <p className="text-xl text-slate-500 line-through">€75,000</p>
-                       <p className="text-5xl font-bold text-cyan-600">€48,000</p>
-                  </div>
-              </div>
-               <div className="border-t border-slate-200 mt-4 pt-4 text-center">
-                   <p className="text-2xl font-bold text-green-600">AHORRO TOTAL: €27,000</p>
-                   <p className="text-base text-green-700">(20% dto. + €15,000 en módulos premium)</p>
-                   <div className="inline-flex items-center gap-2 mt-2 text-sm font-semibold bg-slate-800 text-white px-3 py-1 rounded-full">
-                        <Star className="text-yellow-400" size={16} fill="currentColor" />
-                        <span>Válido hasta 30 Oct 2025</span>
-                   </div>
-               </div>
-          </div>
+            {modules.map((module) => (
+                <motion.div key={module.name} variants={itemVariants}>
+                    <ModuleCard module={module} />
+                </motion.div>
+            ))}
+        </motion.div>
+        
+        <motion.div
+          variants={itemVariants}
+          className="bg-gradient-to-r from-slate-800 to-slate-900 text-white rounded-xl shadow-2xl p-10 mt-8"
+        >
+            <div className="flex justify-between items-center">
+                <div>
+                    <p className="font-bold text-4xl tracking-wide">INVERSIÓN TOTAL (Oferta FastDeal)</p>
+                    <p className="text-2xl text-slate-300 mt-2">Incluye 4 módulos base y bonus premium.</p>
+                </div>
+                <div className="text-right">
+                     <p className="text-3xl text-slate-400 line-through">€75,000</p>
+                     <p className="text-8xl font-bold text-cyan-400">€48,000</p>
+                </div>
+            </div>
+             <div className="border-t border-white/20 mt-8 pt-8 text-center">
+                 <p className="text-5xl font-bold text-white">AHORRO TOTAL: €27,000</p>
+                 <p className="text-2xl text-slate-300 mt-2">(20% dto. + €15,000 en módulos premium)</p>
+                 <div className="inline-flex items-center gap-3 mt-6 text-lg font-semibold bg-white text-slate-800 px-5 py-2 rounded-full shadow-lg">
+                      <Star className="text-yellow-500" size={20} fill="currentColor" />
+                      <span>Válido hasta 30 Oct 2025</span>
+                 </div>
+             </div>
         </motion.div>
       </motion.div>
     </SlideWrapper>

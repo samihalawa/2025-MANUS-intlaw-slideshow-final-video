@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Play, Pause, ChevronLeft, ChevronRight, Grid } from 'lucide-react';
 import { GridView } from './components/GridView';
+import { ExportView } from './components/ExportView';
 
 // --- Import all slides from the 'slides' directory ---
 // Section 1: Introduction
@@ -92,10 +93,10 @@ const slides = [
   Slide17             // 24. Cierre y Agradecimiento
 ];
 
-const SLIDE_DURATION = 9000;
+export const SLIDE_DURATION = 9000;
 
 // More varied Ken Burns effects for a more cinematic feel
-const kenBurnsVariants = [
+export const kenBurnsVariants = [
     { scale: 1.15, x: '3%', y: '2%', rotate: 0.5 },
     { scale: 1.15, x: '-2%', y: '-3%', rotate: -0.5 },
     { scale: 1.15, x: '2%', y: '-2%', rotate: 0.3 },
@@ -111,7 +112,7 @@ export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [showControls, setShowControls] = useState(true);
-  const [isGridView, setIsGridView] = useState(false);
+  const [viewMode, setViewMode] = useState<'presentation' | 'grid' | 'export'>('presentation');
 
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -164,13 +165,13 @@ export default function App() {
   
   // Autoplay timer
   useEffect(() => {
-    if (isPlaying && !isGridView) {
+    if (isPlaying && viewMode === 'presentation') {
       const timer = setInterval(() => {
         nextSlide();
       }, SLIDE_DURATION);
       return () => clearInterval(timer);
     }
-  }, [isPlaying, nextSlide, currentSlide, isGridView]);
+  }, [isPlaying, nextSlide, currentSlide, viewMode]);
 
   // Autohide controls logic
   const handleMouseMove = useCallback(() => {
@@ -197,7 +198,7 @@ export default function App() {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (isGridView) return;
+      if (viewMode !== 'presentation') return;
       if (e.code === 'ArrowRight') nextSlide();
       if (e.code === 'ArrowLeft') prevSlide();
       if (e.code === 'Space') {
@@ -207,7 +208,7 @@ export default function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [nextSlide, prevSlide, isGridView]);
+  }, [nextSlide, prevSlide, viewMode]);
 
 
   const SlideComponent = slides[currentSlide];
@@ -259,7 +260,7 @@ export default function App() {
 
         <div className={`controls-container absolute bottom-5 left-1/2 -translate-x-1/2 z-50 ${showControls ? '' : 'hidden'}`}>
           <div className="flex items-center gap-4 bg-black/60 backdrop-blur-md p-2 rounded-xl shadow-lg border border-white/20">
-            <button onClick={() => setIsGridView(true)} className="p-2 text-slate-300 hover:text-white transition-colors rounded-lg hover:bg-white/10" aria-label="Grid View">
+            <button onClick={() => setViewMode('grid')} className="p-2 text-slate-300 hover:text-white transition-colors rounded-lg hover:bg-white/10" aria-label="Grid View">
               <Grid size={24} />
             </button>
             <div className="w-px h-6 bg-white/20"></div>
@@ -280,7 +281,10 @@ export default function App() {
         </div>
       </div>
       <AnimatePresence>
-        {isGridView && <GridView slides={slides} onClose={() => setIsGridView(false)} />}
+        {viewMode === 'grid' && <GridView slides={slides} onStartExport={() => setViewMode('export')} onClose={() => setViewMode('presentation')} />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {viewMode === 'export' && <ExportView slides={slides} onClose={() => setViewMode('presentation')} />}
       </AnimatePresence>
     </>
   );
