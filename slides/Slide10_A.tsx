@@ -1,6 +1,6 @@
 import React from 'react';
 import { SlideWrapper } from '../components/SlideWrapper';
-import { Search, Filter, Send, Target, ArrowRight } from 'lucide-react';
+import { Search, Filter, Send, Target } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
 
 interface SlideProps {
@@ -26,54 +26,44 @@ const itemVariants: Variants = {
 };
 
 const steps = [
-    { icon: <Search />, title: '1. Defina Objetivo', desc: "Describa su cliente ideal. Ej: 'constructoras en Valencia con licitaciones >500k€'."},
-    { icon: <Filter />, title: '2. Búsqueda IA', desc: 'El sistema rastrea BOE, registros y prensa para encontrar coincidencias.'},
-    { icon: <Send />, title: '3. Cualificación IA', desc: 'Cada oportunidad es analizada con datos clave y contexto.'},
-    { icon: <Target />, title: '4. Contacto Inteligente', desc: 'Genere emails hiper-personalizados para maximizar la respuesta.'},
+    { icon: <Search />, title: '1. Defina su Objetivo', desc: "Describa su cliente ideal en lenguaje natural. Ej: 'empresas de construcción en Valencia que han ganado licitaciones de >500k€'."},
+    { icon: <Filter />, title: '2. Búsqueda IA Multi-Fuente', desc: 'El sistema rastrea y cruza en tiempo real millones de datos de BOE, registros, prensa y licitaciones para encontrar coincidencias.'},
+    { icon: <Send />, title: '3. Cualificación Automática', desc: 'Cada oportunidad es analizada y enriquecida con datos clave: decisores, salud financiera y contexto del evento.'},
+    { icon: <Target />, title: '4. Contacto Inteligente', desc: 'Genere borradores de email hiper-personalizados en segundos, utilizando los insights de la IA para maximizar la tasa de respuesta.'},
 ];
 
 export const Slide10_A: React.FC<SlideProps> = ({ isActive }) => {
     return (
-        <SlideWrapper className="p-24 justify-center bg-slate-50">
-           <div className="absolute inset-0 bg-grid-pattern-light opacity-50"></div>
-           <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-slate-50 to-transparent z-10"></div>
-           <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-slate-50 to-transparent z-10"></div>
+        <SlideWrapper className="p-16 justify-center">
             <motion.div
-              className="relative z-20"
               variants={containerVariants}
               initial="hidden"
               animate={isActive ? "visible" : "hidden"}
             >
               <motion.div variants={itemVariants}>
-                <h2 className="text-8xl font-black leading-none tracking-tighter text-slate-800 mb-6 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Motor de Crecimiento Proactivo</h2>
-                <p className="text-4xl text-slate-600 mb-16 text-center">Convierta el mercado en su base de datos.</p>
+                <h2 className="text-8xl font-bold tracking-tighter text-slate-900 mb-4 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>El Motor de Crecimiento Proactivo</h2>
+                <p className="text-3xl text-slate-600 mb-12 text-center max-w-5xl mx-auto">Deje de esperar a que los clientes lleguen. Vaya a buscarlos.</p>
               </motion.div>
               <motion.div 
-                className="flex items-center justify-center gap-8"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
                 variants={{
                   visible: {
-                    transition: { staggerChildren: 0.2 }
+                    transition: { staggerChildren: 0.1 }
                   }
                 }}
               >
-                  {steps.map((step, index) => (
-                      <React.Fragment key={step.title}>
-                        <motion.div
-                            className="bg-white/90 backdrop-blur-sm rounded-2xl p-10 border border-slate-200 text-center flex flex-col items-center shadow-xl w-[340px] h-[420px]"
-                            variants={itemVariants}
-                        >
-                            <div className="w-28 h-28 flex items-center justify-center bg-cyan-500/10 text-cyan-500 rounded-full mb-8 border-4 border-white ring-4 ring-cyan-500/10">
-                                {React.cloneElement(step.icon, { size: 56, strokeWidth: 2 })}
-                            </div>
-                            <h3 className="text-4xl font-bold text-slate-800 mb-4">{step.title}</h3>
-                            <p className="text-2xl text-slate-600 flex-grow">{step.desc}</p>
-                        </motion.div>
-                        {index < steps.length - 1 && (
-                            <motion.div variants={itemVariants} className="flex items-center justify-center">
-                                <ArrowRight className="w-20 h-20 text-slate-300" />
-                            </motion.div>
-                        )}
-                      </React.Fragment>
+                  {steps.map((step) => (
+                      <motion.div
+                          key={step.title}
+                          className="bg-slate-50/50 rounded-xl p-8 border border-slate-200 text-center flex flex-col items-center h-full"
+                          variants={itemVariants}
+                      >
+                          <div className="w-20 h-20 flex-shrink-0 flex items-center justify-center bg-white text-cyan-500 rounded-full shadow-lg mb-6">
+                              {React.cloneElement(step.icon, { size: 40, strokeWidth: 2 })}
+                          </div>
+                          <h3 className="text-3xl font-bold text-slate-800 mb-4">{step.title}</h3>
+                          <p className="text-xl text-slate-600 flex-grow">{step.desc}</p>
+                      </motion.div>
                   ))}
               </motion.div>
             </motion.div>

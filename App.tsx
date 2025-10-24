@@ -7,7 +7,6 @@ import { ExportView } from './components/ExportView';
 // --- Import all slides from the 'slides' directory ---
 // Section 1: Introduction
 import { Slide01 } from './slides/Slide01';
-import { Slide02 } from './slides/Slide02';
 
 // Section 2: Problem & Vision
 import { Slide03_Analysis } from './slides/Slide03_Analysis';
@@ -52,45 +51,44 @@ import { Slide17 } from './slides/Slide17';
 const slides = [
   // Section 1: Introduction
   Slide01,            // 1. Título
-  Slide02,            // 2. Agenda
   
   // Section 2: Problem & Vision
-  Slide03_Analysis,   // 3. Análisis de Necesidades (Personalizado)
-  Slide04,            // 4. Visión y Dashboard de Impacto
+  Slide03_Analysis,   // 2. Análisis de Necesidades (Personalizado)
+  Slide04,            // 3. Visión y Dashboard de Impacto
 
   // Section 3: Módulo 1 - Automated Client Intake & Qualification
-  Slide07_B,          // 5. Automatización Web (Chatbot)
-  Slide08_B,          // 6. Captación Multicanal y Cualificación IA (WhatsApp -> Lead)
-  Slide09_B,          // 7. Dashboard de Oportunidades (Lead in Dashboard)
+  Slide07_B,          // 4. Automatización Web (Chatbot)
+  Slide08_B,          // 5. Captación Multicanal y Cualificación IA (WhatsApp -> Lead)
+  Slide09_B,          // 6. Dashboard de Oportunidades (Lead in Dashboard)
 
   // Section 4: Módulo 2 - Proactive Lead Generation
-  Slide10_A,          // 8. Introducción a la Captación Proactiva IA
-  Slide10_B,          // 9. Radar de Oportunidades Proactivas
-  Slide10_D,          // 10. Flujo de Campaña de Captación IA
-  Slide10_E_Idealista,// 11. Caso de Uso: Prospección en Real Estate
-  Slide10_F_Workflow, // 12. DEMO: Flujo de Trabajo Completo (De la Señal a la Estrategia)
+  Slide10_A,          // 7. Introducción a la Captación Proactiva IA
+  Slide10_B,          // 8. Radar de Oportunidades Proactivas
+  Slide10_D,          // 9. Flujo de Campaña de Captación IA
+  Slide10_E_Idealista,// 10. Caso de Uso: Prospección en Real Estate
+  Slide10_F_Workflow, // 11. DEMO: Flujo de Trabajo Completo (De la Señal a la Estrategia)
   
   // Section 5: Módulo 3 - AI Document Agent
-  Slide10,            // 13. Introducción al Agente de Documentos (Garantía 0% Alucinaciones)
-  Slide11_B,          // 14. Demostración: Agente con Citas
-  Slide10_C,          // 15. Demostración: Inteligencia Documental (Mapa de Entidades)
+  Slide10,            // 12. Introducción al Agente de Documentos (Garantía 0% Alucinaciones)
+  Slide11_B,          // 13. Demostración: Agente con Citas
+  Slide10_C,          // 14. Demostración: Inteligencia Documental (Mapa de Entidades)
 
   // Section 6: Módulo 4 - Connected Document Generation
-  Slide12,            // 16. Introducción a la Generación de Documentos (Copilot)
-  Slide13_B,          // 17. Demostración: Generación Conectada a CRM
+  Slide12,            // 15. Introducción a la Generación de Documentos (Copilot)
+  Slide13_B,          // 16. Demostración: Generación Conectada a CRM
   
   // Section 7: Módulo 5 - Unified Platform
-  Slide14_C,          // 18. Plataforma Unificada: Vista del Caso 360°
+  Slide14_C,          // 17. Plataforma Unificada: Vista del Caso 360°
 
   // Section 8: Benefits & ROI
-  Slide14,            // 19. Resumen de Beneficios Clave
+  Slide14,            // 18. Resumen de Beneficios Clave
   
   // Section 9: Investment & Closing
-  Slide15,            // 20. Propuesta de Inversión Estratégica
-  Slide15_Addons,     // 21. Módulos Adicionales Opcionales
-  Slide15_Assurance,  // 22. Garantías de Valor
-  Slide16,            // 23. Próximos Pasos
-  Slide17             // 24. Cierre y Agradecimiento
+  Slide15,            // 19. Propuesta de Inversión Estratégica
+  Slide15_Addons,     // 20. Módulos Adicionales Opcionales
+  Slide15_Assurance,  // 21. Garantías de Valor
+  Slide16,            // 22. Próximos Pasos
+  Slide17             // 23. Cierre y Agradecimiento
 ];
 
 export const SLIDE_DURATION = 9000;
