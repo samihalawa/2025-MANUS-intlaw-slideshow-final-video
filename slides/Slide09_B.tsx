@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SlideWrapper } from '../components/SlideWrapper';
 import { LayoutDashboard, Users, Briefcase, Settings, Bell, ChevronDown, Sparkles, Target, Database, Home } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Cursor } from '../components/Cursor';
 
 interface SlideProps {
   isActive: boolean;
@@ -48,12 +49,12 @@ const InboxView = ({ isActive }: { isActive: boolean }) => (
                     <h3 className="font-bold text-slate-900 text-2xl mb-3">TechCorp SL</h3>
                     <div className="bg-slate-100/50 p-4 rounded-md">
                         <p className="font-semibold text-slate-500 text-lg">Análisis IA (API Externa)</p>
-                        <p className="text-slate-700 text-xl mt-3"><strong className="font-semibold">Fuente:</strong> Registro Mercantil</p>
-                        <p className="text-slate-700 text-xl"><strong className="font-semibold">Facturación 2024:</strong> €5.2M</p>
-                        <p className="text-slate-700 text-xl"><strong className="font-semibold">Decisor Clave:</strong> Juan Pérez (CEO)</p>
-                        <p className="text-green-600 text-xl font-bold mt-3"><strong className="font-semibold text-slate-600">Viabilidad Económica:</strong> ALTA</p>
+                        <p className="text-slate-700 text-2xl mt-3"><strong className="font-semibold">Fuente:</strong> Registro Mercantil</p>
+                        <p className="text-slate-700 text-2xl"><strong className="font-semibold">Facturación 2024:</strong> €5.2M</p>
+                        <p className="text-slate-700 text-2xl"><strong className="font-semibold">Decisor Clave:</strong> Juan Pérez (CEO)</p>
+                        <p className="text-green-600 text-2xl font-bold mt-3"><strong className="font-semibold text-slate-600">Viabilidad Económica:</strong> ALTA</p>
                     </div>
-                    <p className="mt-4 text-slate-500 text-lg"><strong className="font-semibold text-slate-800">Estado:</strong> Pendiente de revisión</p>
+                    <p className="mt-4 text-slate-500 text-xl"><strong className="font-semibold text-slate-800">Estado:</strong> Pendiente de revisión</p>
                 </div>
             </div>
         </motion.div>
@@ -66,7 +67,7 @@ const ProspeccionView = ({isActive} : {isActive: boolean}) => (
         initial="hidden"
         animate={isActive ? "visible" : "hidden"}
     >
-        <motion.h2 variants={itemVariants} className="text-3xl font-bold text-slate-900 mb-6">Campañas de Prospección Activas</motion.h2>
+        <motion.h2 variants={itemVariants} className="text-4xl font-bold text-slate-900 mb-6">Campañas de Prospección Activas</motion.h2>
         <motion.div 
             className="space-y-5"
             variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
@@ -76,15 +77,15 @@ const ProspeccionView = ({isActive} : {isActive: boolean}) => (
                 { title: "Real Estate (>2M€)", icon: <Home size={28}/>, results: [{ t: 'Transacción Alto Valor (Valencia)', d: 'Registro 2025-10-17' }] }
             ].map(c => (
                 <motion.div key={c.title} variants={itemVariants} className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
-                    <h3 className="font-bold text-slate-900 text-2xl mb-4 flex items-center gap-4">{c.icon}{c.title}</h3>
+                    <h3 className="font-bold text-slate-900 text-3xl mb-4 flex items-center gap-4">{c.icon}{c.title}</h3>
                     <div className="space-y-3">
                         {c.results.map(r => (
                             <div key={r.t} className="bg-slate-50/60 p-4 rounded-md flex justify-between items-center">
                                 <div>
-                                    <p className="font-semibold text-slate-800 text-xl">{r.t}</p>
-                                    <p className="text-slate-500 text-lg italic">Detectado: {r.d}</p>
+                                    <p className="font-semibold text-slate-800 text-2xl">{r.t}</p>
+                                    <p className="text-slate-500 text-xl italic">Detectado: {r.d}</p>
                                 </div>
-                                <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 px-4 rounded-md text-lg transition-colors">Generar Contacto</button>
+                                <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 px-4 rounded-md text-xl transition-colors">Generar Contacto</button>
                             </div>
                         ))}
                     </div>
@@ -97,18 +98,50 @@ const ProspeccionView = ({isActive} : {isActive: boolean}) => (
 export const Slide09_B: React.FC<SlideProps> = ({ isActive }) => {
     const [activeTab, setActiveTab] = useState('inbox');
     const navItems = [{ i: <Users size={28}/>, l: 'Leads', a: true }, { i: <Briefcase size={28}/>, l: 'Clientes' }];
+    
+    const prospectingTabRef = useRef<HTMLButtonElement>(null);
+    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+    const [cursorVisible, setCursorVisible] = useState(false);
+    const [cursorClick, setCursorClick] = useState(false);
 
     useEffect(() => {
-        if (!isActive) return;
+        if (!isActive) {
+            setActiveTab('inbox');
+            setCursorVisible(false);
+            return;
+        }
+        
         const toggleTab = () => {
-            setActiveTab(prev => prev === 'inbox' ? 'prospecting' : 'inbox');
+            const nextTab = activeTab === 'inbox' ? 'prospecting' : 'inbox';
+            
+            if (nextTab === 'prospecting' && prospectingTabRef.current) {
+                const tab = prospectingTabRef.current;
+                const x = tab.offsetLeft + tab.offsetWidth / 2;
+                const y = tab.offsetTop + tab.offsetHeight / 2;
+                
+                setCursorPos({ x, y });
+                setCursorVisible(true);
+                
+                setTimeout(() => {
+                    setCursorClick(true);
+                    setTimeout(() => {
+                        setActiveTab('prospecting');
+                        setCursorClick(false);
+                    }, 300);
+                }, 800);
+            } else {
+                setCursorVisible(false);
+                setActiveTab('inbox');
+            }
         };
+        
         const intervalId = setInterval(toggleTab, 5000);
         return () => clearInterval(intervalId);
-    }, [isActive]);
+    }, [isActive, activeTab]);
 
     return (
         <SlideWrapper className="p-8 flex flex-col items-center justify-center">
+             <Cursor x={cursorPos.x} y={cursorPos.y} visible={cursorVisible} click={cursorClick} />
             <motion.div
                 variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
                 initial="hidden"
@@ -123,7 +156,7 @@ export const Slide09_B: React.FC<SlideProps> = ({ isActive }) => {
                 </motion.h2>
                 <motion.div 
                   variants={itemVariants}
-                  className="bg-white rounded-xl shadow-2xl border border-slate-200 flex min-h-[720px] w-full max-w-[1600px]"
+                  className="bg-white rounded-xl shadow-2xl border border-slate-200 flex min-h-[720px] w-full max-w-[1600px] relative"
                 >
                     <div className="w-72 bg-slate-50/50 rounded-l-xl p-6 flex flex-col border-r border-slate-200">
                         <div className="font-bold text-4xl text-slate-900 mb-12 tracking-tighter" style={{fontFamily: "'Playfair Display', serif"}}>INTLAW</div>
@@ -139,7 +172,7 @@ export const Slide09_B: React.FC<SlideProps> = ({ isActive }) => {
                         <header className="p-5 border-b border-slate-200 flex items-center justify-between">
                             <div className="flex items-center">
                                 <button onClick={() => setActiveTab('inbox')} className={`px-5 py-2 text-2xl font-semibold transition-all ${activeTab === 'inbox' ? 'text-cyan-600 border-b-2 border-cyan-600' : 'text-slate-500'}`}>Bandeja de Entrada</button>
-                                <button onClick={() => setActiveTab('prospecting')} className={`px-5 py-2 text-2xl font-semibold flex items-center gap-3 transition-all ${activeTab === 'prospecting' ? 'text-cyan-600 border-b-2 border-cyan-600' : 'text-slate-500'}`}>
+                                <button ref={prospectingTabRef} onClick={() => setActiveTab('prospecting')} className={`px-5 py-2 text-2xl font-semibold flex items-center gap-3 transition-all ${activeTab === 'prospecting' ? 'text-cyan-600 border-b-2 border-cyan-600' : 'text-slate-500'}`}>
                                     <Target size={24}/>Prospección IA
                                 </button>
                             </div>

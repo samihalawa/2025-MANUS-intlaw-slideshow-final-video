@@ -43,7 +43,7 @@ export const Slide17: React.FC<SlideProps> = ({ isActive }) => {
           Gracias.
         </motion.h2>
         <motion.p variants={itemVariants} className="text-4xl text-slate-700 max-w-4xl leading-relaxed">
-          Una invitación para liderar el futuro de la práctica legal.
+          Una invitación para liderar el futuro legal.
         </motion.p>
 
         <motion.div variants={itemVariants} className="mt-24 border-t-2 border-cyan-500/50 pt-10 inline-block">

@@ -10,20 +10,20 @@ interface SlideProps {
 const addons = [
     {
         icon: <FastForward size={32} />,
-        title: "Entrega Acelerada (30 días)",
-        desc: "Implementación funcional de los módulos clave para un retorno de la inversión más rápido.",
+        title: "Entrega Acelerada",
+        desc: "Implementación de módulos clave para ROI rápido.",
         price: "+€4,000"
     },
     {
         icon: <MessageSquare size={32} />,
-        title: "Automatización de WhatsApp",
-        desc: "Responda y cualifique leads automáticamente a través del canal de mensajería más popular.",
+        title: "Automatización WhatsApp",
+        desc: "Responda y cualifique leads automáticamente por WhatsApp.",
         price: "+€5,000"
     },
     {
         icon: <Phone size={32} />,
         title: "Automatización Telefónica",
-        desc: "Implemente un agente de voz IA para gestionar llamadas entrantes y cualificar clientes.",
+        desc: "Agente de voz IA para gestionar y cualificar llamadas.",
         price: "+€6,000"
     }
 ];
@@ -51,7 +51,7 @@ export const Slide15_Addons: React.FC<SlideProps> = ({ isActive }) => {
                 className="text-7xl font-bold tracking-tighter text-slate-900 mb-10 text-center" 
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
-                Módulos y Servicios Adicionales
+                Módulos Adicionales
               </motion.h2>
               
               <motion.div 

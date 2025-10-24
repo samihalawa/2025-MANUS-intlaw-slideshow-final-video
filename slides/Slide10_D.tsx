@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SlideWrapper } from '../components/SlideWrapper';
 import { Play, DatabaseZap, Users, Mail, Loader, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInterval } from '../hooks/useInterval';
+import { Cursor } from '../components/Cursor';
 
 interface SlideProps {
   isActive: boolean;
@@ -17,22 +18,48 @@ const resultsData = [
 const CampaignWorkflow = ({ isActive }: { isActive: boolean }) => {
     const [start, setStart] = useState(false);
     const [results, setResults] = useState(resultsData);
+    const startButtonRef = useRef<HTMLDivElement>(null);
+    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+    const [cursorVisible, setCursorVisible] = useState(false);
+    const [cursorClick, setCursorClick] = useState(false);
+    const [isButtonClicked, setIsButtonClicked] = useState(false);
 
     useEffect(() => {
         if (isActive) {
             const runSequence = () => {
-                setStart(true);
+                setStart(false);
                 setResults(resultsData.map(r => ({ ...r, status: 'pending' })));
+                setIsButtonClicked(false);
+                setCursorVisible(false);
+
+                setTimeout(() => {
+                    if (startButtonRef.current) {
+                        const button = startButtonRef.current;
+                        const x = button.offsetLeft + button.offsetWidth / 2;
+                        const y = button.offsetTop + button.offsetHeight / 2;
+                        setCursorPos({ x, y });
+                        setCursorVisible(true);
+
+                        setTimeout(() => {
+                            setCursorClick(true);
+                            setIsButtonClicked(true);
+                            setTimeout(() => {
+                                setCursorClick(false);
+                                setIsButtonClicked(false);
+                                setStart(true);
+                            }, 400);
+                        }, 800);
+                    }
+                }, 500);
             };
-            const sequenceTimeout = setTimeout(runSequence, 500);
-            const loopInterval = setInterval(runSequence, 9000);
-            return () => {
-                clearTimeout(sequenceTimeout);
-                clearInterval(loopInterval);
-            };
+            
+            runSequence();
+            const loopInterval = setInterval(runSequence, 7000);
+            return () => clearInterval(loopInterval);
         } else {
             setStart(false);
             setResults(resultsData.map(r => ({ ...r, status: 'pending' })));
+            setCursorVisible(false);
         }
     }, [isActive]);
 
@@ -44,11 +71,9 @@ const CampaignWorkflow = ({ isActive }: { isActive: boolean }) => {
             setResults(prev => prev.map((r, i) => i === nextPendingIndex ? { ...r, status: 'sending' } : r));
             setTimeout(() => {
                  setResults(prev => prev.map((r, i) => i === nextPendingIndex ? { ...r, status: 'sent' } : r));
-            }, 1000);
-        } else {
-             setTimeout(() => setStart(false), 2000);
+            }, 700);
         }
-    }, start && isActive ? 1500 : null);
+    }, start && isActive ? 1000 : null);
 
     const processVariants = {
         hidden: { scale: 0.8, opacity: 0 },
@@ -56,22 +81,29 @@ const CampaignWorkflow = ({ isActive }: { isActive: boolean }) => {
     };
     
     return (
-    <div className="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-2xl border border-slate-200 p-10">
+    <div className="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-2xl border border-slate-200 p-10 relative">
+        <Cursor x={cursorPos.x} y={cursorPos.y} visible={cursorVisible} click={cursorClick} />
         {/* Input */}
         <div>
-            <label className="text-2xl font-semibold text-slate-600 mb-3 block">Describa su cliente ideal (Lenguaje Natural):</label>
+            <label className="text-2xl font-semibold text-slate-600 mb-3 block">Describa su cliente ideal:</label>
             <div className="flex gap-6">
                 <textarea 
                     className="w-full bg-slate-100/70 border-2 border-slate-300 rounded-lg p-4 text-2xl text-slate-800 resize-none"
                     rows={2}
-                    defaultValue="Empresas de Real Estate en Madrid que hayan realizado transacciones > 1M€ en los últimos 6 meses."
+                    defaultValue="Real Estate en Madrid con transacciones > 1M€ en últimos 6 meses."
                     readOnly
                 />
-                <div 
-                    className="bg-cyan-500 text-white font-bold py-4 px-6 rounded-lg text-2xl flex items-center justify-center gap-3 transition-colors"
+                <motion.div 
+                    ref={startButtonRef}
+                    className="bg-cyan-500 text-white font-bold py-4 px-6 rounded-lg text-2xl flex items-center justify-center gap-3 transition-colors cursor-pointer"
+                    animate={{ 
+                        scale: isButtonClicked ? 1.1 : 1,
+                        backgroundColor: isButtonClicked ? '#0891b2' : '#06b6d4'
+                    }}
+                    transition={{ duration: 0.15 }}
                 >
                     <Play size={24}/> Iniciar
-                </div>
+                </motion.div>
             </div>
         </div>
 
@@ -143,8 +175,8 @@ export const Slide10_D: React.FC<SlideProps> = ({ isActive }) => {
               animate={isActive ? "visible" : "hidden"}
             >
               <motion.div variants={itemVariants}>
-                <h2 className="text-7xl font-bold tracking-tighter text-slate-900 text-center mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>Módulo 2: Buscador Proactivo de Clientes</h2>
-                <p className="text-3xl text-slate-600 mb-10 text-center">De una idea a una campaña de prospección en un solo clic.</p>
+                <h2 className="text-7xl font-bold tracking-tighter text-slate-900 text-center mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>Buscador Proactivo de Clientes</h2>
+                <p className="text-3xl text-slate-600 mb-10 text-center">De idea a campaña de prospección en un clic.</p>
               </motion.div>
               <motion.div
                 className="w-full"

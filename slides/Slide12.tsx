@@ -31,7 +31,7 @@ const CopilotMockup = () => {
             </header>
             <div className="p-8 space-y-6 h-[400px] flex flex-col justify-center">
                  <div className="bg-cyan-500/10 border border-cyan-500/20 p-5 rounded-lg">
-                    <p className="text-cyan-800 text-2xl">Generar borrador de contrato de compraventa mercantil entre TechCorp SL y InnoSolutions SA, incluyendo una cláusula de confidencialidad de 5 años, arbitraje en Madrid y condiciones de pago a 60 días.</p>
+                    <p className="text-cyan-800 text-2xl">Generar contrato compraventa entre TechCorp y InnoSolutions. Cláusula confidencialidad 5 años, arbitraje Madrid, pago 60 días.</p>
                 </div>
                 <AnimatePresence mode="wait">
                     {status === 'processing' && (
@@ -90,14 +90,14 @@ export const Slide12: React.FC<SlideProps> = ({ isActive }) => {
                 <motion.div>
                     <motion.div variants={itemVariants} className="inline-block bg-cyan-500/10 text-cyan-600 text-2xl font-bold px-6 py-3 rounded-full mb-6">Módulo 4: Generador de Documentos IA</motion.div>
                     <motion.h2 variants={itemVariants} className="text-8xl font-bold tracking-tighter text-slate-900" style={{ fontFamily: "'Playfair Display', serif" }}>De Horas a Minutos:</motion.h2>
-                    <motion.p variants={itemVariants} className="text-4xl text-slate-600 mb-10">La solución a la redacción manual y repetitiva de documentos.</motion.p>
+                    <motion.p variants={itemVariants} className="text-4xl text-slate-600 mb-10">Solución a la redacción manual y repetitiva.</motion.p>
                     <motion.div 
                         className="space-y-6 text-3xl text-slate-700"
                         variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
                     >
-                        <motion.div variants={itemVariants} className="flex items-start gap-4"><Check className="text-cyan-500 mt-1 flex-shrink-0 w-8 h-8"/><span><strong className="font-semibold text-slate-800">Generación desde Lenguaje Natural:</strong> Describa el documento que necesita y la IA generará un borrador completo y estructurado.</span></motion.div>
-                        <motion.div variants={itemVariants} className="flex items-start gap-4"><Check className="text-cyan-500 mt-1 flex-shrink-0 w-8 h-8"/><span><strong className="font-semibold text-slate-800">Integración de Datos de CRM:</strong> Inserte automáticamente datos de clientes y casos en los documentos, eliminando errores manuales.</span></motion.div>
-                        <motion.div variants={itemVariants} className="flex items-start gap-4"><Check className="text-cyan-500 mt-1 flex-shrink-0 w-8 h-8"/><span><strong className="font-semibold text-slate-800">Biblioteca de Plantillas Inteligentes:</strong> Acceda y personalice una biblioteca de plantillas legales que se adaptan dinámicamente al contexto del caso.</span></motion.div>
+                        <motion.div variants={itemVariants} className="flex items-start gap-4"><Check className="text-cyan-500 mt-1 flex-shrink-0 w-8 h-8"/><span><strong className="font-semibold text-slate-800">Lenguaje Natural:</strong> Describa el documento, la IA generará un borrador.</span></motion.div>
+                        <motion.div variants={itemVariants} className="flex items-start gap-4"><Check className="text-cyan-500 mt-1 flex-shrink-0 w-8 h-8"/><span><strong className="font-semibold text-slate-800">Integración CRM:</strong> Inserte datos de clientes y casos automáticamente.</span></motion.div>
+                        <motion.div variants={itemVariants} className="flex items-start gap-4"><Check className="text-cyan-500 mt-1 flex-shrink-0 w-8 h-8"/><span><strong className="font-semibold text-slate-800">Plantillas Inteligentes:</strong> Acceda y personalice plantillas legales adaptables.</span></motion.div>
                     </motion.div>
                 </motion.div>
                 <motion.div variants={{...itemVariants, hidden: {...itemVariants.hidden, x: 20}, visible: {...itemVariants.visible, x: 0}}}>

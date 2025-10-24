@@ -32,8 +32,8 @@ export const Slide10_B: React.FC<SlideProps> = ({ isActive }) => {
               animate={isActive ? "visible" : "hidden"}
             >
               <motion.div variants={itemVariants}>
-                <h2 className="text-7xl font-bold tracking-tighter text-slate-900 text-center mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>Radar de Oportunidades Proactivas</h2>
-                <p className="text-3xl text-slate-600 mb-10 text-center">Detectando clientes potenciales antes que nadie.</p>
+                <h2 className="text-7xl font-bold tracking-tighter text-slate-900 text-center mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>Radar de Oportunidades</h2>
+                <p className="text-3xl text-slate-600 mb-10 text-center">Detecte clientes potenciales antes que nadie.</p>
               </motion.div>
 
               <motion.div 

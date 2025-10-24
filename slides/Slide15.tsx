@@ -12,38 +12,38 @@ interface SlideProps {
 
 const modules = [
   {
-    name: 'Módulo 1: Captación y Asistente Inteligente',
+    name: 'Módulo 1: Captación e IA',
     features: [
-      { icon: <MessageCircle size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Asistente Web IA:</strong> Asistente web 24/7 que cualifica, cotiza y recoge documentos.' },
-      { icon: <Mail size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Intake Multicanal:</strong> Centralice la captación desde web, email y WhatsApp.' },
-      { icon: <FilePlus size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Propuesta Automática:</strong> Genere y envíe propuestas de honorarios al instante.' }
+      { icon: <MessageCircle size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Asistente Web IA:</strong> Cualifica, cotiza y recoge documentos 24/7.' },
+      { icon: <Mail size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Intake Multicanal:</strong> Centralice captación de web, email, WhatsApp.' },
+      { icon: <FilePlus size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Propuesta Automática:</strong> Genere y envíe propuestas al instante.' }
     ],
     price: '€12,000'
   },
   {
-    name: 'Módulo 2: Inteligencia Documental (Garantizado)',
+    name: 'Módulo 2: Inteligencia Documental',
     features: [
-      { icon: <FileCheck2 size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Análisis Confiable:</strong> Análisis masivo con precisión garantizada (0% alucinaciones).' },
-      { icon: <Search size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Búsqueda Inteligente:</strong> Detección de riesgos, contradicciones y cláusulas críticas.' },
-      { icon: <Link size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Cita de Fuentes:</strong> Fiabilidad total: cada dato generado está vinculado a su fuente original.' }
+      { icon: <FileCheck2 size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Análisis Confiable:</strong> Análisis masivo con precisión garantizada.' },
+      { icon: <Search size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Búsqueda Inteligente:</strong> Detecte riesgos, contradicciones y cláusulas.' },
+      { icon: <Link size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Cita de Fuentes:</strong> Fiabilidad total, cada dato vinculado a su fuente.' }
     ],
     price: '€12,000'
   },
   {
-    name: 'Módulo 3: Motor de Crecimiento Proactivo IA',
+    name: 'Módulo 3: Motor de Crecimiento IA',
     features: [
-      { icon: <Target size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Radar de Oportunidades:</strong> Escaneo de datos públicos para detectar eventos y generar clientes.' },
-      { icon: <Filter size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Prospección Quirúrgica:</strong> Flujo constante de oportunidades de alto valor filtradas.' },
-      { icon: <LayoutDashboard size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Inteligencia Competitiva:</strong> Identifique necesidades legales antes que su competencia.' }
+      { icon: <Target size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Radar de Oportunidades:</strong> Escanee datos públicos y genere clientes.' },
+      { icon: <Filter size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Prospección Quirúrgica:</strong> Flujo constante de oportunidades filtradas.' },
+      { icon: <LayoutDashboard size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Inteligencia Competitiva:</strong> Identifique necesidades legales antes que nadie.' }
     ],
     price: '€12,000'
   },
   {
-    name: 'Módulo 4: Copilot Documental y Asociación',
+    name: 'Módulo 4: Copilot y Asociación',
     features: [
-      { icon: <FilePlus size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Copilot de Redacción:</strong> Redacte documentos complejos desde lenguaje natural.' },
-      { icon: <Users size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Implementación y Adopción:</strong> Formación completa para maximizar el rendimiento.' },
-      { icon: <Wrench size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Soporte Proactivo:</strong> 12 meses de soporte y monitorización para optimizar el sistema.' }
+      { icon: <FilePlus size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Copilot de Redacción:</strong> Redacte documentos desde lenguaje natural.' },
+      { icon: <Users size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Implementación y Adopción:</strong> Formación completa para máximo rendimiento.' },
+      { icon: <Wrench size={16} className="flex-shrink-0 text-cyan-600" />, text: '<strong>Soporte Proactivo:</strong> 12 meses de soporte y optimización.' }
     ],
     price: '€12,000'
   }
@@ -92,7 +92,7 @@ export const Slide15: React.FC<SlideProps> = ({ isActive }) => {
       >
         <motion.div variants={itemVariants}>
           <h2 className="text-6xl font-bold tracking-tighter text-slate-900 mb-2 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Inversión Estratégica</h2>
-          <p className="text-xl text-slate-600 mb-6 text-center max-w-4xl mx-auto">Una estructura de valor transparente con una oferta de asociación preferente.</p>
+          <p className="text-xl text-slate-600 mb-6 text-center max-w-4xl mx-auto">Estructura de valor transparente con oferta preferente.</p>
         </motion.div>
         
         <motion.div 
@@ -109,7 +109,7 @@ export const Slide15: React.FC<SlideProps> = ({ isActive }) => {
               <div className="grid grid-cols-3 items-center">
                   <div className="col-span-2">
                       <p className="font-bold text-xl text-slate-800">INVERSIÓN TOTAL (Oferta FastDeal)</p>
-                      <p className="text-base text-slate-500">Incluye 4 módulos base y módulos premium de bonificación.</p>
+                      <p className="text-base text-slate-500">Incluye 4 módulos base y bonus premium.</p>
                   </div>
                   <div className="text-right">
                        <p className="text-xl text-slate-500 line-through">€75,000</p>

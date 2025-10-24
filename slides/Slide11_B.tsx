@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SlideWrapper } from '../components/SlideWrapper';
 import { Folder, FileText, Bot, User, Loader, Sparkles, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInterval } from '../hooks/useInterval';
+import { Cursor } from '../components/Cursor';
 
 interface SlideProps {
   isActive: boolean;
 }
 
 const chatSequence = [
-    { from: 'user', text: 'Analizar contradicciones entre el Contrato Principal y el Anexo II sobre Propiedad Intelectual.' },
+    { from: 'user', text: 'Analizar contradicciones entre Contrato Principal y Anexo II.' },
     { from: 'bot', type: 'processing' },
     { 
       from: 'bot', 
       type: 'text', 
-      text: "Análisis completado. Se ha detectado un punto de riesgo crítico: una contradicción directa en las cláusulas de Propiedad Intelectual. Haga clic para ver las fuentes:",
+      text: "Análisis completado. Riesgo crítico detectado: contradicción en cláusulas de P.I. Ver fuentes:",
       citations: [
-        { id: 'c1', text: "Contrato Principal (pág. 12): la PI pertenece 100% al Comprador." },
-        { id: 'c2', text: "Anexo II (pág. 4): la PI es compartida (50/50)." }
+        { id: 'c1', text: "Contrato Principal: PI 100% del Comprador." },
+        { id: 'c2', text: "Anexo II: PI es compartida (50/50)." }
       ]
     },
 ];
@@ -36,35 +37,50 @@ const itemVariants = {
 export const Slide11_B: React.FC<SlideProps> = ({ isActive }) => {
     const [messages, setMessages] = useState([chatSequence[0]]);
     const [highlightedClause, setHighlightedClause] = useState<string | null>(null);
+    const citationRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+    const [cursorVisible, setCursorVisible] = useState(false);
 
     useInterval(() => {
         if (!isActive) return;
         setMessages(prev => (prev.length < chatSequence.length) ? [...prev, chatSequence[prev.length]] : [chatSequence[0]]);
-    }, 6000);
+    }, 4500);
 
     useEffect(() => {
         if (!isActive) {
             setHighlightedClause(null);
+            setCursorVisible(false);
             return;
         }
         const lastMessage = messages[messages.length - 1];
         if (lastMessage?.citations) {
             let i = 0;
             const cycleHighlights = () => {
-                const citationId = lastMessage.citations![i % lastMessage.citations!.length].id;
+                const citationIndex = i % lastMessage.citations!.length;
+                const citationId = lastMessage.citations![citationIndex].id;
                 setHighlightedClause(citationId);
+                
+                const citationEl = citationRefs.current[citationIndex];
+                if (citationEl) {
+                    const x = citationEl.offsetLeft + citationEl.offsetWidth / 2;
+                    const y = citationEl.offsetTop + citationEl.offsetHeight / 2;
+                    setCursorPos({ x, y });
+                    setCursorVisible(true);
+                }
                 i++;
             };
             
             cycleHighlights(); // Highlight first one immediately
-            const highlightInterval = setInterval(cycleHighlights, 2000);
+            const highlightInterval = setInterval(cycleHighlights, 1500);
             
             return () => {
                 clearInterval(highlightInterval);
                 setHighlightedClause(null);
+                 setCursorVisible(false);
             };
         } else {
              setHighlightedClause(null);
+             setCursorVisible(false);
         }
     }, [messages, isActive]);
 
@@ -77,7 +93,7 @@ export const Slide11_B: React.FC<SlideProps> = ({ isActive }) => {
             >
               <motion.div variants={itemVariants}>
                 <h2 className="text-7xl font-bold tracking-tighter text-slate-900 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Análisis IA con Fuentes Citadas</h2>
-                <p className="text-slate-600 text-center mb-6 text-3xl">La garantía de 0% Alucinaciones: la IA cita sus fuentes.</p>
+                <p className="text-slate-600 text-center mb-6 text-3xl">Garantía 0% Alucinaciones: IA cita sus fuentes.</p>
               </motion.div>
 
               <motion.div 
@@ -129,7 +145,8 @@ export const Slide11_B: React.FC<SlideProps> = ({ isActive }) => {
                   </div>
 
                   {/* Right Panel - Chat */}
-                  <div className="w-1/3 p-4 flex flex-col bg-slate-100/50 rounded-lg">
+                  <div className="w-1/3 p-4 flex flex-col bg-slate-100/50 rounded-lg relative">
+                      <Cursor x={cursorPos.x} y={cursorPos.y} visible={cursorVisible} />
                       <h3 className="font-bold text-slate-900 text-3xl mb-6 flex items-center gap-4"><Sparkles size={32} className="text-cyan-500"/>Chat IA</h3>
                       <motion.div 
                           className="flex items-center gap-4 text-lg font-semibold text-green-800 bg-green-500/10 p-4 rounded-lg mb-6 border-2 border-green-500/20 shadow-sm"
@@ -138,7 +155,7 @@ export const Slide11_B: React.FC<SlideProps> = ({ isActive }) => {
                           transition={{ delay: 0.5 }}
                       >
                           <Users size={48} className="flex-shrink-0" />
-                          <span>Verificado por Agentes de Supervisión para garantizar fiabilidad total.</span>
+                          <span>Verificado por Agentes para garantizar fiabilidad total.</span>
                       </motion.div>
                       <div className="flex-grow space-y-5">
                           <AnimatePresence>
@@ -151,8 +168,11 @@ export const Slide11_B: React.FC<SlideProps> = ({ isActive }) => {
                                       ) : (
                                           <div className={`p-4 rounded-lg max-w-lg text-2xl ${msg.from === 'user' ? 'bg-cyan-600 text-white rounded-br-none' : 'bg-white text-slate-700 rounded-bl-none border border-slate-200'}`}>
                                               <p>{msg.text}</p>
-                                              {msg.citations && msg.citations.map(c => (
-                                                  <p key={c.id} className={`mt-3 p-3 rounded cursor-pointer transition-colors border-l-4 text-xl ${highlightedClause === c.id ? 'bg-yellow-100 border-yellow-400' : 'bg-slate-100 border-slate-300'}`}>{c.text}</p>
+                                              {msg.citations && msg.citations.map((c, index) => (
+                                                  <p 
+                                                    key={c.id} 
+                                                    ref={el => citationRefs.current[index] = el}
+                                                    className={`mt-3 p-3 rounded cursor-pointer transition-colors border-l-4 text-xl ${highlightedClause === c.id ? 'bg-yellow-100 border-yellow-400' : 'bg-slate-100 border-slate-300'}`}>{c.text}</p>
                                               ))}
                                           </div>
                                       )}

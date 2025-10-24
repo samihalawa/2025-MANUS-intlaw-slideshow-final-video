@@ -20,26 +20,26 @@ const WhatsAppMockup = () => (
             </div>
             {/* Chat Area */}
             <div className="flex-grow p-5 bg-[#E5DDD5] space-y-4">
-                 <motion.div initial={{y:10, opacity: 0}} animate={{y:0, opacity: 1, transition: {delay: 0.5}}} className="flex justify-end">
-                    <div className="bg-[#DCF8C6] p-4 rounded-lg max-w-[80%] text-xl shadow">Hola, necesito ayuda con un contrato de compraventa bastante complejo.</div>
+                 <motion.div initial={{y:10, opacity: 0}} animate={{y:0, opacity: 1, transition: {delay: 0.3}}} className="flex justify-end">
+                    <div className="bg-[#DCF8C6] p-4 rounded-lg max-w-[80%] text-xl shadow">Hola, necesito ayuda con un contrato complejo.</div>
                 </motion.div>
-                 <motion.div initial={{y:10, opacity: 0}} animate={{y:0, opacity: 1, transition: {delay: 1.5}}} className="flex justify-start">
-                    <div className="bg-white p-4 rounded-lg max-w-[80%] text-xl shadow">Entendido. Para analizarlo y asignarle un especialista, ¿podría enviarme el borrador del contrato?</div>
+                 <motion.div initial={{y:10, opacity: 0}} animate={{y:0, opacity: 1, transition: {delay: 1.0}}} className="flex justify-start">
+                    <div className="bg-white p-4 rounded-lg max-w-[80%] text-xl shadow">Entendido. Para analizarlo, ¿podría enviarme el borrador?</div>
                 </motion.div>
-                 <motion.div initial={{y:10, opacity: 0}} animate={{y:0, opacity: 1, transition: {delay: 2.8}}} className="flex justify-end">
+                 <motion.div initial={{y:10, opacity: 0}} animate={{y:0, opacity: 1, transition: {delay: 1.8}}} className="flex justify-end">
                     <div className="bg-[#DCF8C6] p-3 rounded-lg max-w-[80%] text-xl shadow flex flex-col items-end">
                         <div className="flex items-center gap-3 p-3 bg-slate-100/50 rounded-md border border-slate-200 w-full">
                             <FileText size={36} className="text-slate-600 flex-shrink-0"/> 
                             <span className="font-semibold text-lg">Contrato_V1.pdf</span>
                         </div>
-                        <span className="mt-2">Aquí está todo.</span>
+                        <span className="mt-2">Aquí está.</span>
                     </div>
                 </motion.div>
-                <motion.div initial={{y:10, opacity: 0}} animate={{y:0, opacity: 1, transition: {delay: 4.0}}} className="flex justify-start">
+                <motion.div initial={{y:10, opacity: 0}} animate={{y:0, opacity: 1, transition: {delay: 2.5}}} className="flex justify-start">
                     <div className="bg-white p-4 rounded-lg max-w-[80%] text-xl shadow">Recibido y analizando...</div>
                 </motion.div>
-                <motion.div initial={{y:10, opacity: 0}} animate={{y:0, opacity: 1, transition: {delay: 5.5}}} className="flex justify-start">
-                    <div className="bg-white p-4 rounded-lg max-w-[80%] text-xl shadow">Análisis preliminar completado. Caso ID-4588 creado. Un socio le contactará en breve. Gracias.</div>
+                <motion.div initial={{y:10, opacity: 0}} animate={{y:0, opacity: 1, transition: {delay: 3.2}}} className="flex justify-start">
+                    <div className="bg-white p-4 rounded-lg max-w-[80%] text-xl shadow">Análisis completado. Caso ID-4588 creado. Un socio contactará.</div>
                 </motion.div>
             </div>
         </div>
@@ -48,7 +48,7 @@ const WhatsAppMockup = () => (
 
 const dashboardVariants: Variants = {
     hidden: { },
-    visible: { transition: { staggerChildren: 0.2, delayChildren: 6.0 } }
+    visible: { transition: { staggerChildren: 0.2, delayChildren: 3.5 } }
 };
 
 const itemVariants: Variants = {
@@ -80,7 +80,7 @@ const NewLeadCard = ({ isActive }: { isActive: boolean }) => (
         <motion.div variants={itemVariants} className="bg-cyan-500/5 p-6 rounded-lg border border-cyan-500/30">
             <p className="font-bold text-cyan-800 text-2xl mb-3 flex items-center gap-3"><Target size={24} />Resumen por IA:</p>
             <p className="text-slate-600 text-xl leading-relaxed">
-                El Agente IA ha extraído los datos clave del documento adjunto: Contrato mercantil con un valor estimado de 250k€. Se han identificado cláusulas de confidencialidad y condiciones de pago a 90 días. Puntuación de viabilidad: 95/100 (ALTA). Se recomienda asignación inmediata a socio senior.
+                IA extrajo datos clave: contrato mercantil de 250k€. Cláusulas de confidencialidad y pago a 90 días. Viabilidad: 95/100 (ALTA). Recomiendo asignar a socio.
             </p>
         </motion.div>
     </motion.div>
@@ -107,7 +107,7 @@ export const Slide08_B: React.FC<SlideProps> = ({ isActive }) => {
             >
                 Captación Multicanal y Cualificación IA
             </motion.h2>
-            <motion.p variants={itemVariants} className="text-3xl text-slate-600 mb-8 text-center">De WhatsApp a un caso cualificado en segundos.</motion.p>
+            <motion.p variants={itemVariants} className="text-3xl text-slate-600 mb-8 text-center">De WhatsApp a caso cualificado en segundos.</motion.p>
           </motion.div>
             <motion.div 
               className="grid grid-cols-2 gap-16 items-center"

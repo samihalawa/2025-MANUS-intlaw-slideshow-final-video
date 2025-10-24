@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SlideWrapper } from '../components/SlideWrapper';
 import { Bot, UploadCloud, FileCheck, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInterval } from '../hooks/useInterval';
+import { Cursor } from '../components/Cursor';
 
 interface SlideProps {
   isActive: boolean;
@@ -20,44 +21,100 @@ const conversation = [
   { from: 'bot', text: 'Documento recibido. He creado su caso (ID-4587) y un socio le contactará en breve. Gracias.' },
 ];
 
-const ChatbotMockup = () => {
-  const [messages, setMessages] = useState(conversation.slice(0, 4));
+const ChatbotMockup = ({ isActive }: { isActive: boolean }) => {
+  const [messages, setMessages] = useState<typeof conversation>([]);
   const [showButtons, setShowButtons] = useState(false);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const yesButtonRef = useRef<HTMLButtonElement>(null);
+
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [cursorVisible, setCursorVisible] = useState(false);
+  const [cursorClick, setCursorClick] = useState(false);
 
   useEffect(() => {
-    const chatContainer = document.getElementById('chat-container');
-    if (chatContainer) {
-      chatContainer.scrollTop = chatContainer.scrollHeight;
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
-  useInterval(() => {
-    if (messages.length < conversation.length) {
-      const nextMessage = conversation[messages.length];
-      
-      if (nextMessage.type === 'buttons') {
-        setShowButtons(true);
-      } else {
-        setShowButtons(false);
-      }
-      
-      if (nextMessage.type !== 'button_click') {
-        setMessages(prev => [...prev, nextMessage]);
-      }
-    } else {
-      // Loop conversation
-      setMessages([conversation[0]]);
-      setShowButtons(false);
-    }
-  }, 2500);
-
   const handleButtonClick = () => {
     setShowButtons(false);
-    setMessages(prev => [...prev, conversation.find(m => m.type === 'button_click')!]);
+    const nextUserMessage = conversation.find(m => m.type === 'button_click');
+    if (nextUserMessage) {
+      setMessages(prev => [...prev, nextUserMessage]);
+    }
   };
 
+  useEffect(() => {
+    if (!isActive) {
+      setMessages([]);
+      setShowButtons(false);
+      setCursorVisible(false);
+      return;
+    }
+
+    let messageIndex = 0;
+    // FIX: The return type of `setTimeout` in the browser is `number`, not `NodeJS.Timeout`.
+    let timeoutId: number;
+
+    const showNextMessage = () => {
+      if (messageIndex >= conversation.length) {
+        // Loop
+        timeoutId = setTimeout(() => {
+          setMessages([]);
+          messageIndex = 0;
+          showNextMessage();
+        }, 2000);
+        return;
+      }
+
+      const nextMessage = conversation[messageIndex];
+
+      if (nextMessage.type === 'buttons') {
+        setShowButtons(true);
+        // Wait for button to render
+        setTimeout(() => {
+          if (yesButtonRef.current) {
+            const button = yesButtonRef.current;
+            const container = button.closest('.overflow-hidden');
+            if (container) {
+                const containerRect = container.getBoundingClientRect();
+                 const x = button.offsetLeft + button.offsetWidth / 2;
+                 const y = button.offsetTop + button.offsetHeight / 2 - containerRect.height; // position relative to chatbox
+                setCursorPos({ x, y: y + 540 }); // Adjust for position in component
+                setCursorVisible(true);
+                timeoutId = window.setTimeout(() => {
+                    setCursorClick(true);
+                    setTimeout(() => {
+                        setCursorClick(false);
+                        handleButtonClick();
+                        messageIndex++;
+                        timeoutId = window.setTimeout(showNextMessage, 1000);
+                    }, 300);
+                }, 800);
+            }
+          }
+        }, 100);
+      } else {
+        setShowButtons(false);
+        setCursorVisible(false);
+        if (nextMessage.type !== 'button_click') {
+          setMessages(prev => [...prev, nextMessage]);
+        }
+        messageIndex++;
+        timeoutId = setTimeout(showNextMessage, 1800);
+      }
+    };
+
+    showNextMessage();
+
+    return () => clearTimeout(timeoutId);
+  }, [isActive]);
+
+
   return (
-    <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+    <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden relative">
+      <Cursor x={cursorPos.x} y={cursorPos.y} visible={cursorVisible} click={cursorClick} />
       <div className="p-5 bg-slate-100/80 border-b border-slate-200 flex items-center gap-5">
         <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white">
           <Bot size={36} />
@@ -70,7 +127,7 @@ const ChatbotMockup = () => {
           </div>
         </div>
       </div>
-      <div id="chat-container" className="p-8 space-y-5 h-[450px] bg-white/50 overflow-y-auto scroll-smooth">
+      <div ref={chatContainerRef} id="chat-container" className="p-8 space-y-5 h-[450px] bg-white/50 overflow-y-auto scroll-smooth">
         <AnimatePresence>
           {messages.map((msg, i) => {
             if (msg.type === 'upload_action') {
@@ -102,7 +159,7 @@ const ChatbotMockup = () => {
       <div className="p-5 border-t border-slate-200 bg-slate-100/80">
         {showButtons ? (
           <div className="flex gap-4">
-            <button onClick={handleButtonClick} className="flex-1 bg-cyan-600 text-white font-semibold py-4 px-5 rounded-lg text-2xl hover:bg-cyan-700 transition-colors">Sí, proceder</button>
+            <button ref={yesButtonRef} className="flex-1 bg-cyan-600 text-white font-semibold py-4 px-5 rounded-lg text-2xl hover:bg-cyan-700 transition-colors">Sí, proceder</button>
             <button className="flex-1 bg-slate-300 text-slate-700 font-semibold py-4 px-5 rounded-lg text-2xl hover:bg-slate-400 transition-colors">No, gracias</button>
           </div>
         ) : (
@@ -124,10 +181,10 @@ const itemVariants = {
 };
 
 const features = [
-    { text: "<strong>Asistente Conversacional 24/7:</strong> Capture y atienda a cada visitante de su web, a cualquier hora." },
-    { text: "<strong>Cualificación Inteligente:</strong> Filtre y priorice leads automáticamente según sus criterios de cliente ideal." },
-    { text: "<strong>Ingesta Segura de Documentos:</strong> Permita a los clientes subir documentación de forma encriptada y directa en el chat." },
-    { text: "<strong>Creación Automática de Casos:</strong> Convierta conversaciones cualificadas en casos activos en su CRM, sin entrada manual de datos." }
+    { text: "<strong>Asistente 24/7:</strong> Capture y atienda a cada visitante." },
+    { text: "<strong>Cualificación Inteligente:</strong> Filtre y priorice leads automáticamente." },
+    { text: "<strong>Ingesta Segura:</strong> Permita a clientes subir documentos." },
+    { text: "<strong>Creación Automática:</strong> Convierta conversaciones en casos activos." }
 ];
 
 export const Slide07_B: React.FC<SlideProps> = ({ isActive }) => {
@@ -141,7 +198,7 @@ export const Slide07_B: React.FC<SlideProps> = ({ isActive }) => {
       >
         <motion.div>
             <motion.div variants={itemVariants} className="inline-block bg-cyan-500/10 text-cyan-600 text-2xl font-bold px-6 py-3 rounded-full mb-6">Módulo 1: Asistente Web IA</motion.div>
-            <motion.h2 variants={itemVariants} className="text-7xl font-bold tracking-tighter text-slate-900 mb-10" style={{ fontFamily: "'Playfair Display', serif" }}>Asistente Web: Automatización de Principio a Fin</motion.h2>
+            <motion.h2 variants={itemVariants} className="text-7xl font-bold tracking-tighter text-slate-900 mb-10" style={{ fontFamily: "'Playfair Display', serif" }}>Asistente Web: Automatización Total</motion.h2>
             <motion.div 
                 className="space-y-6 text-3xl text-slate-700"
                 variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
@@ -158,7 +215,7 @@ export const Slide07_B: React.FC<SlideProps> = ({ isActive }) => {
           className="flex justify-center"
           variants={{...itemVariants, hidden: {...itemVariants.hidden, x: 20}, visible: {...itemVariants.visible, x: 0}}}
         >
-          <ChatbotMockup />
+          <ChatbotMockup isActive={isActive} />
         </motion.div>
       </motion.div>
     </SlideWrapper>

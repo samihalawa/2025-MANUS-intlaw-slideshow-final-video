@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SlideWrapper } from '../components/SlideWrapper';
 import { FileText, Download, Sparkles, Link, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Cursor } from '../components/Cursor';
 
 interface SlideProps {
   isActive: boolean;
@@ -9,8 +10,8 @@ interface SlideProps {
 
 const FormInput = ({ label, value }: { label: string; value: string; }) => (
     <div>
-        <label className="text-lg font-semibold text-slate-600 mb-2 block">{label}</label>
-        <input type="text" value={value} readOnly className="w-full bg-slate-100/50 border-2 border-slate-300 rounded-md p-3 text-xl text-slate-800 outline-none transition-all"/>
+        <label className="text-xl font-semibold text-slate-600 mb-2 block">{label}</label>
+        <input type="text" value={value} readOnly className="w-full bg-slate-100/50 border-2 border-slate-300 rounded-md p-3 text-2xl text-slate-800 outline-none transition-all"/>
     </div>
 );
 
@@ -18,7 +19,7 @@ const DocumentPreview = ({ data }: { data: { compradora: string, vendedora: stri
     <div className="bg-white rounded-md shadow-lg h-full overflow-hidden relative border border-slate-200">
         <div className="p-10 text-black leading-relaxed font-serif">
             <h3 className="text-center font-bold text-3xl mb-4">CONTRATO DE COMPRAVENTA</h3>
-            <p className="text-center text-gray-500 mb-8 text-lg">Entre {data.compradora || '...'} y {data.vendedora || '...'}</p>
+            <p className="text-center text-gray-500 mb-8 text-xl">Entre {data.compradora || '...'} y {data.vendedora || '...'}</p>
             <p className="mb-4 text-2xl">De una parte, <span className="bg-cyan-100/80 px-1 rounded font-semibold">{data.compradora || '[COMPRADORA]'}</span>...</p>
             <p className="mb-8 text-2xl">De otra parte, <span className="bg-cyan-100/80 px-1 rounded font-semibold">{data.vendedora || '[VENDEDORA]'}</span>...</p>
         </div>
@@ -27,7 +28,7 @@ const DocumentPreview = ({ data }: { data: { compradora: string, vendedora: stri
     </div>
 );
 
-const CrmModal = ({ onSelect, onClose }: { onSelect: () => void; onClose: () => void; }) => (
+const CrmModal = ({ onSelect, onClose, leadItemRef }: { onSelect: () => void; onClose: () => void; leadItemRef: React.RefObject<HTMLDivElement> }) => (
     <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -43,19 +44,19 @@ const CrmModal = ({ onSelect, onClose }: { onSelect: () => void; onClose: () => 
             onClick={e => e.stopPropagation()}
         >
             <div className="p-4 border-b border-slate-200">
-                <h3 className="text-2xl font-bold text-slate-800">Buscar Lead en CRM</h3>
+                <h3 className="text-3xl font-bold text-slate-800">Buscar Lead en CRM</h3>
             </div>
             <div className="p-4">
                 <div className="relative mb-4">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20}/>
-                    <input type="text" placeholder="Buscar por nombre o empresa..." className="w-full pl-10 p-3 bg-slate-100 rounded-md text-lg"/>
+                    <input type="text" placeholder="Buscar por nombre o empresa..." className="w-full pl-10 p-3 bg-slate-100 rounded-md text-xl"/>
                 </div>
                 <div 
+                    ref={leadItemRef}
                     className="p-4 rounded-md hover:bg-cyan-500/10 cursor-pointer border border-transparent hover:border-cyan-500/50 bg-cyan-500/5 border-cyan-500/30"
-                    onClick={onSelect}
                 >
                     <p className="font-bold text-2xl text-slate-800">TechCorp S.L.</p>
-                    <p className="text-slate-500 text-lg">Lead Activo - Prioridad ALTA</p>
+                    <p className="text-slate-500 text-xl">Lead Activo - Prioridad ALTA</p>
                 </div>
             </div>
         </motion.div>
@@ -77,6 +78,12 @@ export const Slide13_B: React.FC<SlideProps> = ({ isActive }) => {
     const [formData, setFormData] = useState({ compradora: '', vendedora: '' });
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+    const [cursorVisible, setCursorVisible] = useState(false);
+    const [cursorClick, setCursorClick] = useState(false);
+    const importButtonRef = useRef<HTMLDivElement>(null);
+    const leadItemRef = useRef<HTMLDivElement>(null);
+
     const handleSelect = () => {
         setFormData({ compradora: 'TechCorp S.L.', vendedora: 'InnoSolutions S.A.' });
         setIsModalOpen(false);
@@ -87,25 +94,65 @@ export const Slide13_B: React.FC<SlideProps> = ({ isActive }) => {
           const sequence = () => {
               setFormData({ compradora: '', vendedora: '' });
               setIsModalOpen(false);
-              setTimeout(() => setIsModalOpen(true), 2000);
-              setTimeout(() => handleSelect(), 3500);
+              setCursorVisible(false);
+              
+              setTimeout(() => { // 1. Animate cursor to Import button
+                  if (importButtonRef.current) {
+                      const button = importButtonRef.current;
+                      setCursorPos({ x: button.offsetLeft + button.offsetWidth / 2, y: button.offsetTop + button.offsetHeight / 2 });
+                      setCursorVisible(true);
+                      
+                      setTimeout(() => { // After cursor travels
+                          setCursorClick(true);
+                          setIsModalOpen(true);
+                          setTimeout(() => setCursorClick(false), 300);
+
+                          setTimeout(() => { // After modal opens
+                              if (leadItemRef.current) {
+                                  const item = leadItemRef.current;
+                                  const modal = item.closest('.bg-white.rounded-xl') as HTMLElement;
+                                  if (modal) {
+                                    setCursorPos({ 
+                                        x: modal.offsetLeft + item.offsetLeft + item.offsetWidth / 2, 
+                                        y: modal.offsetTop + item.offsetTop + item.offsetHeight / 2 
+                                    });
+
+                                    setTimeout(() => { // After cursor moves to lead
+                                        setCursorClick(true);
+                                        setTimeout(() => {
+                                          handleSelect();
+                                          setCursorClick(false);
+                                          setCursorVisible(false);
+                                        }, 300)
+                                    }, 800)
+                                  }
+                              }
+                          }, 500);
+                      }, 800);
+                  }
+              }, 500);
           };
           sequence();
-          const intervalId = setInterval(sequence, 6000);
+          const intervalId = setInterval(sequence, 5000);
           return () => clearInterval(intervalId);
+        } else {
+           setCursorVisible(false);
+           setIsModalOpen(false);
+           setFormData({ compradora: '', vendedora: '' });
         }
     }, [isActive]);
 
     return (
         <SlideWrapper className="p-6 flex flex-col justify-center relative">
+            <Cursor x={cursorPos.x} y={cursorPos.y} visible={cursorVisible} click={cursorClick} />
             <motion.div
               variants={containerVariants}
               initial="hidden"
               animate={isActive ? "visible" : "hidden"}
             >
               <motion.div variants={itemVariants}>
-                <h2 className="text-5xl font-bold tracking-tighter text-slate-900 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Generador de Documentos Conectado al CRM</h2>
-                <p className="text-slate-600 text-center mb-4 text-xl">De lead a documento en segundos, sin fricción.</p>
+                <h2 className="text-5xl font-bold tracking-tighter text-slate-900 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Generador de Documentos Conectado</h2>
+                <p className="text-slate-600 text-center mb-4 text-2xl">De lead a documento en segundos.</p>
               </motion.div>
 
               <motion.div 
@@ -114,23 +161,28 @@ export const Slide13_B: React.FC<SlideProps> = ({ isActive }) => {
               >
                   {/* Left Panel: Form */}
                   <div className="w-2/5 border-r border-slate-200 p-6 flex flex-col bg-white rounded-l-xl">
-                      <h3 className="font-bold text-slate-900 text-2xl mb-6">Nuevo: Compraventa Mercantil</h3>
+                      <h3 className="font-bold text-slate-900 text-3xl mb-2">Nuevo: Compraventa Mercantil</h3>
+                      <p className="text-xl text-slate-500 mb-6">Compraventa Mercantil</p>
                       <div className="flex-grow space-y-4">
                           <FormInput label="Compradora" value={formData.compradora} />
                           <FormInput label="Vendedora" value={formData.vendedora} />
                       </div>
                        <div 
-                          className="w-full bg-slate-100 text-slate-800 font-bold py-3 rounded-lg text-lg flex items-center justify-center gap-3 mb-3 cursor-pointer"
-                          onClick={() => setIsModalOpen(true)}
+                          ref={importButtonRef}
+                          className="w-full bg-slate-100 text-slate-800 font-bold py-3 rounded-lg text-xl flex items-center justify-center gap-3 mb-3 cursor-pointer"
                         >
                           <Link /> Importar desde CRM
                       </div>
-                      <button className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold py-4 rounded-lg hover:opacity-90 transition-opacity text-xl flex items-center justify-center gap-3">
+                      <button className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold py-4 rounded-lg hover:opacity-90 transition-opacity text-2xl flex items-center justify-center gap-3">
                           <Sparkles /> Generar Documento
                       </button>
                   </div>
                   {/* Right Panel: Preview */}
                   <div className="w-3/5 p-6 bg-slate-100/50 rounded-r-xl flex flex-col">
+                      <div className="flex justify-between items-center mb-4 flex-shrink-0">
+                         <h4 className="font-bold text-slate-900 text-2xl flex items-center gap-2"><FileText size={20}/> Vista Previa</h4>
+                         <button className="text-lg bg-cyan-600 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2"><Download size={16}/> Descargar PDF</button>
+                      </div>
                        <div className="flex-grow overflow-hidden">
                           <DocumentPreview data={formData} />
                        </div>
@@ -139,7 +191,7 @@ export const Slide13_B: React.FC<SlideProps> = ({ isActive }) => {
             </motion.div>
             
             <AnimatePresence>
-                {isModalOpen && <CrmModal onSelect={handleSelect} onClose={() => setIsModalOpen(false)} />}
+                {isModalOpen && <CrmModal onSelect={handleSelect} onClose={() => setIsModalOpen(false)} leadItemRef={leadItemRef} />}
             </AnimatePresence>
         </SlideWrapper>
     );

@@ -51,18 +51,18 @@ export const Slide16: React.FC<SlideProps> = ({ isActive }) => {
               </motion.h2>
 
               <motion.div variants={itemVariants} className="bg-slate-50/50 rounded-xl p-8 border border-slate-200 mb-8">
-                  <h3 className="text-3xl font-bold text-slate-900 mb-6 text-center">Hoja de Ruta de Colaboración</h3>
+                  <h3 className="text-3xl font-bold text-slate-900 mb-6 text-center">Hoja de Ruta</h3>
                   <div className="bg-white rounded-lg p-6 border-2 border-cyan-500 shadow-lg flex items-center justify-around text-center">
                       <div>
                           <p className="text-base text-cyan-600 font-bold uppercase mb-2">Fase 1: Implementación Core</p>
                           <p className="text-7xl font-bold text-slate-900">80 días</p>
-                          <p className="text-slate-600 mt-2 text-lg max-w-sm">Despliegue de módulos de crecimiento y fiabilidad documental.</p>
+                          <p className="text-slate-600 mt-2 text-lg max-w-sm">Despliegue de módulos de crecimiento y fiabilidad.</p>
                       </div>
                       <div className="text-5xl font-light text-slate-300">+</div>
                       <div>
                           <p className="text-base text-cyan-600 font-bold uppercase mb-2">Fase 2: Optimización Continua</p>
                           <p className="text-7xl font-bold text-slate-900">Meses 3-12</p>
-                          <p className="text-slate-600 mt-2 text-lg max-w-sm">Ajuste colaborativo para maximizar el rendimiento y la adopción.</p>
+                          <p className="text-slate-600 mt-2 text-lg max-w-sm">Ajuste colaborativo para maximizar rendimiento y adopción.</p>
                       </div>
                   </div>
               </motion.div>

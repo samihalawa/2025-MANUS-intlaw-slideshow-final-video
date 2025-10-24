@@ -10,12 +10,12 @@ interface SlideProps {
 const features = [
     { icon: <DatabaseZap size={48} />, text: 'Análisis Masivo de Expedientes' },
     { icon: <Search size={48} />, text: 'Extracción de Entidades y Cláusulas' },
-    { icon: <FileText size={48} />, text: 'Generación de Resúmenes Ejecutivos' }
+    { icon: <FileText size={48} />, text: 'Generación de Resúmenes' }
 ];
 
 const guarantees = [
-    'Cada respuesta vinculada a documentos específicos.',
-    'Garantía de reembolso total si se detecta alguna alucinación.',
+    'Cada respuesta vinculada a documentos.',
+    'Reembolso total si se detecta una alucinación.',
 ];
 
 const AnimatedStat = ({ value, suffix = '', isActive }: { value: number; suffix?: string; isActive: boolean; }) => {
@@ -25,9 +25,9 @@ const AnimatedStat = ({ value, suffix = '', isActive }: { value: number; suffix?
     useEffect(() => {
         if (isActive) {
             const controls = animate(count, value, { 
-                duration: 2.0, // Slower animation
+                duration: 1.5, // Slower animation
                 ease: "easeOut",
-                delay: 1.2
+                delay: 0.5
             });
             return () => controls.stop();
         } else {
@@ -66,7 +66,7 @@ export const Slide10: React.FC<SlideProps> = ({ isActive }) => {
               animate={isActive ? "visible" : "hidden"}
             >
               <motion.div variants={itemVariants}>
-                <h2 className="text-7xl font-bold tracking-tighter text-slate-900 mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>Módulo 3: Analista Masivo de Documentos</h2>
+                <h2 className="text-7xl font-bold tracking-tighter text-slate-900 mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>Módulo 3: Analista de Documentos</h2>
                 <p className="text-3xl text-slate-600 mb-12">Precisión absoluta garantizada.</p>
               </motion.div>
 
@@ -121,7 +121,7 @@ export const Slide10: React.FC<SlideProps> = ({ isActive }) => {
                       </ul>
                       <div className="mt-6 text-left p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
                           <p className="font-bold text-blue-700 text-lg">¿Cómo lo garantizamos?</p>
-                          <p className="text-slate-700 text-lg mt-1">Un sistema de 4 agentes IA de supervisión verifica cada dato contra las fuentes originales, asegurando una fiabilidad total.</p>
+                          <p className="text-slate-700 text-lg mt-1">4 agentes IA verifican cada dato contra fuentes originales.</p>
                       </div>
                   </motion.div>
               </motion.div>

@@ -14,9 +14,9 @@ const AnimatedNumber = ({ value, isActive }: { value: number, isActive: boolean 
     useEffect(() => {
         if (isActive) {
             const controls = animate(count, value, { 
-                duration: 2.0, // Slower animation
+                duration: 1.5, // Slower animation
                 ease: "easeOut",
-                delay: 0.8,
+                delay: 0.5,
             });
             return () => {
               controls.stop();
@@ -30,10 +30,10 @@ const AnimatedNumber = ({ value, isActive }: { value: number, isActive: boolean 
 };
 
 const stats = [
-    { value: '>85%', label: 'Potencial Automatización', icon: <Bot size={48} /> },
-    { value: '+30%', label: 'Proyección Captación', icon: <Users size={48} /> },
-    { value: '+40%', label: 'Incremento Rentabilidad', icon: <Euro size={48} /> },
-    { value: '<60s', label: 'Tiempo de Respuesta', icon: <Clock size={48} /> },
+    { value: '>85%', label: 'Automatización', icon: <Bot size={48} /> },
+    { value: '+30%', label: 'Captación', icon: <Users size={48} /> },
+    { value: '+40%', label: 'Rentabilidad', icon: <Euro size={48} /> },
+    { value: '<60s', label: 'Respuesta', icon: <Clock size={48} /> },
 ]
 
 const containerVariants = {
@@ -50,7 +50,7 @@ export const Slide04: React.FC<SlideProps> = ({ isActive }) => {
   return (
     <SlideWrapper className="p-16 flex flex-col items-center justify-center text-center">
       <motion.div 
-        className="w-full"
+        className="w-full flex flex-col items-center"
         variants={containerVariants}
         initial="hidden"
         animate={isActive ? 'visible' : 'hidden'}
@@ -66,7 +66,7 @@ export const Slide04: React.FC<SlideProps> = ({ isActive }) => {
           variants={itemVariants}
           className="mt-6 text-4xl text-slate-600"
         >
-          Un ecosistema legal inteligente y proactivo.
+          Un ecosistema legal inteligente.
         </motion.p>
         
         <motion.div 

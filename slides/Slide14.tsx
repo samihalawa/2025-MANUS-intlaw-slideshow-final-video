@@ -8,10 +8,10 @@ interface SlideProps {
 }
 
 const benefits = [
-    { icon: <Zap size={36} />, title: 'Horas Facturables, No Administrativas', desc: 'Recupere hasta un 60% del tiempo que su equipo dedica a tareas repetitivas y reinviértalo en estrategia legal de alto valor.' },
-    { icon: <TrendingUp size={36}/>, title: 'Crecimiento sin Aumentar Costes Fijos', desc: 'Asuma más casos y clientes de mayor valor sin la necesidad de ampliar su plantilla de asociados.' },
-    { icon: <ShieldCheck size={36}/>, title: 'Precisión Documental Garantizada', desc: 'Elimine el riesgo de error humano en la revisión de documentos con un sistema que cita cada una de sus fuentes.' },
-    { icon: <Target size={36}/>, title: 'Inteligencia de Mercado Proactiva', desc: 'Deje de esperar clientes. Identifique y contacte proactivamente con las oportunidades de mayor rentabilidad del mercado.' },
+    { icon: <Zap size={36} />, title: 'Más Horas Facturables', desc: 'Recupere hasta un 60% del tiempo en tareas repetitivas.' },
+    { icon: <TrendingUp size={36}/>, title: 'Crecimiento sin Aumentar Costes', desc: 'Asuma más casos sin ampliar su plantilla.' },
+    { icon: <ShieldCheck size={36}/>, title: 'Precisión Documental Garantizada', desc: 'Elimine el riesgo de error humano en documentos.' },
+    { icon: <Target size={36}/>, title: 'Inteligencia de Mercado Proactiva', desc: 'Deje de esperar clientes. Identifique y contacte oportunidades.' },
 ];
 
 const containerVariants = {

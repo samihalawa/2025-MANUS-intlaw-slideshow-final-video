@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Play, Pause, ChevronLeft, ChevronRight, Grid } from 'lucide-react';
+import { GridView } from './components/GridView';
 
 // --- Import all slides from the 'slides' directory ---
 // Section 1: Introduction
@@ -91,7 +92,7 @@ const slides = [
   Slide17             // 24. Cierre y Agradecimiento
 ];
 
-const SLIDE_DURATION = 12000;
+const SLIDE_DURATION = 9000;
 
 // More varied Ken Burns effects for a more cinematic feel
 const kenBurnsVariants = [
@@ -110,6 +111,7 @@ export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [showControls, setShowControls] = useState(true);
+  const [isGridView, setIsGridView] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -162,13 +164,13 @@ export default function App() {
   
   // Autoplay timer
   useEffect(() => {
-    if (isPlaying) {
+    if (isPlaying && !isGridView) {
       const timer = setInterval(() => {
         nextSlide();
       }, SLIDE_DURATION);
       return () => clearInterval(timer);
     }
-  }, [isPlaying, nextSlide, currentSlide]);
+  }, [isPlaying, nextSlide, currentSlide, isGridView]);
 
   // Autohide controls logic
   const handleMouseMove = useCallback(() => {
@@ -195,6 +197,7 @@ export default function App() {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (isGridView) return;
       if (e.code === 'ArrowRight') nextSlide();
       if (e.code === 'ArrowLeft') prevSlide();
       if (e.code === 'Space') {
@@ -204,71 +207,81 @@ export default function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [nextSlide, prevSlide]);
+  }, [nextSlide, prevSlide, isGridView]);
 
 
   const SlideComponent = slides[currentSlide];
   const kenBurnsVariant = kenBurnsVariants[currentSlide % kenBurnsVariants.length];
   
   return (
-    <div ref={containerRef} className="presentation-container bg-black">
-      <div ref={canvasRef} className="presentation-canvas">
-        <div className="relative w-full h-full font-sans flex flex-col items-center justify-center overflow-hidden">
-          <motion.div
-            key={`progress-${currentSlide}`}
-            className="absolute top-0 left-0 w-full h-1.5 bg-cyan-500/10 z-20"
-          >
+    <>
+      <div ref={containerRef} className="presentation-container bg-black">
+        <div ref={canvasRef} className="presentation-canvas">
+          <div className="relative w-full h-full font-sans flex flex-col items-center justify-center overflow-hidden">
             <motion.div
-              className="h-full bg-gradient-to-r from-cyan-400 to-blue-500"
-              initial={{ width: '0%' }}
-              animate={{ width: '100%' }}
-              transition={{ duration: isPlaying ? SLIDE_DURATION / 1000 : 0, ease: 'linear' }}
-            />
-          </motion.div>
-          
-          <AnimatePresence>
-            <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96] }} // Smoother, faster cross-fade
-              className="absolute inset-0 overflow-hidden"
+              key={`progress-${currentSlide}`}
+              className="absolute top-0 left-0 w-full h-1.5 bg-cyan-500/10 z-20"
             >
               <motion.div
-                className="w-full h-full"
-                initial={{ scale: 1, x: '0%', y: '0%', rotate: 0 }}
-                animate={kenBurnsVariant}
-                transition={{ 
-                  duration: (SLIDE_DURATION / 1000) * 1.2,
-                  ease: 'linear' 
-                }}
-              >
-                <SlideComponent isActive={true} />
-              </motion.div>
+                className="h-full bg-gradient-to-r from-cyan-400 to-blue-500"
+                initial={{ width: '0%' }}
+                animate={{ width: '100%' }}
+                transition={{ duration: isPlaying ? SLIDE_DURATION / 1000 : 0, ease: 'linear' }}
+              />
             </motion.div>
-          </AnimatePresence>
+            
+            <AnimatePresence>
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }} // Smoother, faster cross-fade
+                className="absolute inset-0 overflow-hidden"
+              >
+                <motion.div
+                  className="w-full h-full"
+                  initial={{ scale: 1, x: '0%', y: '0%', rotate: 0 }}
+                  animate={kenBurnsVariant}
+                  transition={{ 
+                    duration: (SLIDE_DURATION / 1000) * 1.2,
+                    ease: 'linear' 
+                  }}
+                >
+                  <SlideComponent isActive={true} />
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
-      </div>
 
-      <div className="vignette"></div>
+        <div className="vignette"></div>
 
-      <div className={`controls-container absolute bottom-5 left-1/2 -translate-x-1/2 z-50 ${showControls ? '' : 'hidden'}`}>
-        <div className="flex items-center gap-4 bg-black/60 backdrop-blur-md p-2 rounded-xl shadow-lg border border-white/20">
-          <button onClick={prevSlide} className="p-2 text-slate-300 hover:text-white transition-colors rounded-lg hover:bg-white/10" aria-label="Previous Slide">
-            <ChevronLeft size={24} />
-          </button>
-          <button onClick={togglePlay} className="p-3 bg-white/90 text-black rounded-lg hover:bg-white transition-colors" aria-label={isPlaying ? 'Pause' : 'Play'}>
-            {isPlaying ? <Pause size={24} /> : <Play size={24} />}
-          </button>
-          <button onClick={nextSlide} className="p-2 text-slate-300 hover:text-white transition-colors rounded-lg hover:bg-white/10" aria-label="Next Slide">
-            <ChevronRight size={24} />
-          </button>
-          <div className="ml-2 font-mono text-white text-lg">
-            {String(currentSlide + 1).padStart(2, '0')} / {slides.length}
+        <div className={`controls-container absolute bottom-5 left-1/2 -translate-x-1/2 z-50 ${showControls ? '' : 'hidden'}`}>
+          <div className="flex items-center gap-4 bg-black/60 backdrop-blur-md p-2 rounded-xl shadow-lg border border-white/20">
+            <button onClick={() => setIsGridView(true)} className="p-2 text-slate-300 hover:text-white transition-colors rounded-lg hover:bg-white/10" aria-label="Grid View">
+              <Grid size={24} />
+            </button>
+            <div className="w-px h-6 bg-white/20"></div>
+            <button onClick={prevSlide} className="p-2 text-slate-300 hover:text-white transition-colors rounded-lg hover:bg-white/10" aria-label="Previous Slide">
+              <ChevronLeft size={24} />
+            </button>
+            <button onClick={togglePlay} className="p-3 bg-white/90 text-black rounded-lg hover:bg-white transition-colors" aria-label={isPlaying ? 'Pause' : 'Play'}>
+              {isPlaying ? <Pause size={24} /> : <Play size={24} />}
+            </button>
+            <button onClick={nextSlide} className="p-2 text-slate-300 hover:text-white transition-colors rounded-lg hover:bg-white/10" aria-label="Next Slide">
+              <ChevronRight size={24} />
+            </button>
+            <div className="w-px h-6 bg-white/20"></div>
+            <div className="ml-2 font-mono text-white text-lg">
+              {String(currentSlide + 1).padStart(2, '0')} / {slides.length}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <AnimatePresence>
+        {isGridView && <GridView slides={slides} onClose={() => setIsGridView(false)} />}
+      </AnimatePresence>
+    </>
   );
 }

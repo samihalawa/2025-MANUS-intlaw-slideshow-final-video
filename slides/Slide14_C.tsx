@@ -20,7 +20,7 @@ const AnimatedNumber = ({ value, prefix = "", suffix = "", isActive }: AnimatedN
 
     useEffect(() => {
         if (isActive) {
-            const controls = animate(count, value, { duration: 1.5, ease: 'easeOut', delay: 1.2 });
+            const controls = animate(count, value, { duration: 1.2, ease: 'easeOut', delay: 0.5 });
             return () => controls.stop();
         } else {
             count.set(0);
@@ -53,7 +53,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ children, isLast = false })
             <div className="w-4 h-4 bg-cyan-500 rounded-full ring-4 ring-cyan-500/20"></div>
             {!isLast && <div className="w-0.5 flex-grow bg-slate-300 my-1"></div>}
         </div>
-        <div className="pb-2 text-sm">{children}</div>
+        <div className="pb-2 text-lg">{children}</div>
     </motion.div>
 );
 
@@ -66,7 +66,7 @@ interface StatCardProps {
 
 const StatCard: React.FC<StatCardProps> = ({ icon, title, children, className }) => (
     <div className={`bg-white rounded-xl shadow-lg border border-slate-200 p-4 h-full flex flex-col ${className}`}>
-        <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-3">{icon}{title}</h3>
+        <h3 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3">{icon}{title}</h3>
         <div className="flex-grow">{children}</div>
     </div>
 );
@@ -90,8 +90,8 @@ export const Slide14_C: React.FC<SlideProps> = ({ isActive }) => {
               animate={isActive ? "visible" : "hidden"}
             >
               <motion.div variants={itemVariants}>
-                <h2 className="text-5xl font-bold tracking-tighter text-slate-900 text-center mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>Plataforma Unificada: Vista del Caso 360°</h2>
-                <p className="text-xl text-slate-600 mb-6 text-center">Toda la inteligencia de un caso en una sola pantalla.</p>
+                <h2 className="text-5xl font-bold tracking-tighter text-slate-900 text-center mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>Plataforma Unificada: Vista 360°</h2>
+                <p className="text-2xl text-slate-600 mb-6 text-center">Toda la inteligencia del caso en una pantalla.</p>
               </motion.div>
 
               <motion.div 
@@ -104,7 +104,7 @@ export const Slide14_C: React.FC<SlideProps> = ({ isActive }) => {
                     variants={{ visible: { transition: { staggerChildren: 0.1 }}}}
                    >
                       <motion.h2 variants={itemVariants} className="text-3xl font-bold text-slate-900">Caso 4588: Compañía XYZ S.L.</motion.h2>
-                      <motion.div variants={itemVariants} className="flex gap-6 text-lg text-slate-600 mt-2">
+                      <motion.div variants={itemVariants} className="flex gap-6 text-xl text-slate-600 mt-2">
                           <span><strong className="font-semibold">Tipo:</strong> Contrato Mercantil</span>
                           <span className="flex items-center gap-2"><strong className="font-semibold">Estado:</strong> 
                               <span className="flex items-center gap-2 text-green-600 font-bold">
@@ -127,9 +127,9 @@ export const Slide14_C: React.FC<SlideProps> = ({ isActive }) => {
                       <motion.div variants={itemVariants} className="col-span-2 space-y-6">
                           <StatCard icon={<Euro className="text-cyan-500"/>} title="Módulo de Pricing IA y Viabilidad">
                               <div className="space-y-4">
-                                  <p className="text-lg"><strong>Análisis de Solvencia:</strong> <span className="font-semibold text-green-600">Positiva</span></p>
+                                  <p className="text-xl"><strong>Análisis de Solvencia:</strong> <span className="font-semibold text-green-600">Positiva</span></p>
                                   <div className="bg-cyan-500/10 p-3 rounded-lg">
-                                      <p className="font-bold text-cyan-800 text-sm">Rango de Honorarios (IA):</p>
+                                      <p className="font-bold text-cyan-800 text-lg">Rango de Honorarios (IA):</p>
                                       <p className="text-3xl font-bold text-slate-800 mt-1">€6,000 - €8,500</p>
                                   </div>
                                   <div className="flex items-center gap-4">
@@ -137,14 +137,14 @@ export const Slide14_C: React.FC<SlideProps> = ({ isActive }) => {
                                       <div className="w-48 bg-white border-2 border-slate-300 rounded-md p-2 text-2xl font-bold text-slate-800 text-center">
                                          <AnimatedNumber value={7200} prefix="€ " isActive={isActive}/>
                                       </div>
-                                      <button className="bg-cyan-500 text-white font-bold py-2 px-3 rounded-md text-base hover:bg-cyan-600 transition-colors">Enviar Propuesta</button>
+                                      <button className="bg-cyan-500 text-white font-bold py-2 px-3 rounded-md text-lg hover:bg-cyan-600 transition-colors">Enviar Propuesta</button>
                                   </div>
                               </div>
                           </StatCard>
                           <StatCard icon={<FileText className="text-cyan-500"/>} title="Documentos y Acciones">
                                <div className="flex items-center justify-between bg-slate-100 p-3 rounded-md">
-                                  <p className="text-lg font-semibold">Contrato_V1.pdf</p>
-                                  <span className="text-base font-semibold text-green-500">Analizado</span>
+                                  <p className="text-xl font-semibold">Contrato_V1.pdf</p>
+                                  <span className="text-lg font-semibold text-green-500">Analizado</span>
                                </div>
                                <button className="mt-4 w-full bg-slate-800 text-white font-bold py-2 rounded-md text-lg hover:bg-slate-900 transition-colors">Generar Borrador</button>
                           </StatCard>
@@ -153,7 +153,7 @@ export const Slide14_C: React.FC<SlideProps> = ({ isActive }) => {
                       {/* Right Column */}
                       <motion.div variants={itemVariants} className="space-y-6">
                           <StatCard icon={<Clock className="text-cyan-500"/>} title="Línea de Tiempo del Caso">
-                              <motion.div variants={{ visible: { transition: { staggerChildren: 0.2, delayChildren: 0.8 } } }}>
+                              <motion.div variants={{ visible: { transition: { staggerChildren: 0.2, delayChildren: 0.4 } } }}>
                                   <TimelineItem><p><strong className="font-semibold">Hoy:</strong> Chequeo financiero OK</p></TimelineItem>
                                   <TimelineItem><p><strong className="font-semibold">Ayer:</strong> Análisis IA completado</p></TimelineItem>
                                   <TimelineItem><p><strong className="font-semibold">Ayer:</strong> Documento recibido</p></TimelineItem>
@@ -161,11 +161,11 @@ export const Slide14_C: React.FC<SlideProps> = ({ isActive }) => {
                               </motion.div>
                           </StatCard>
                            <StatCard icon={<BrainCircuit className="text-cyan-500"/>} title="Simulación Estratégica IA">
-                              <p className="text-lg mb-2"><strong>Escenario:</strong> Incumplimiento</p>
+                              <p className="text-xl mb-2"><strong>Escenario:</strong> Incumplimiento</p>
                               <div className="bg-slate-100 p-3 rounded-md">
-                                  <p className="font-semibold text-slate-500 text-base">Predicción de Resultado:</p>
-                                  <p className="text-xl font-bold text-green-600 mt-1">85% Fallo Favorable</p>
-                                  <p className="text-slate-600 text-xs mt-1">Basado en jurisprudencia y perfil del juez.</p>
+                                  <p className="font-semibold text-slate-500 text-lg">Predicción de Resultado:</p>
+                                  <p className="text-2xl font-bold text-green-600 mt-1">85% Fallo Favorable</p>
+                                  <p className="text-slate-600 text-sm mt-1">Basado en jurisprudencia y perfil del juez.</p>
                               </div>
                           </StatCard>
                       </motion.div>

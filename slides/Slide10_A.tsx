@@ -26,43 +26,47 @@ const itemVariants: Variants = {
 };
 
 const steps = [
-    { icon: <Search size={48}/>, title: '1. Defina su Objetivo', desc: "Describa su cliente ideal en lenguaje natural. Ej: 'empresas de construcción en Valencia que han ganado licitaciones de >500k€'."},
-    { icon: <Filter size={48}/>, title: '2. Búsqueda IA Multi-Fuente', desc: 'El sistema rastrea y cruza en tiempo real millones de datos de BOE, registros, prensa y licitaciones para encontrar coincidencias.'},
-    { icon: <Send size={48}/>, title: '3. Cualificación Automática', desc: 'Cada oportunidad es analizada y enriquecida con datos clave: decisores, salud financiera y contexto del evento.'},
-    { icon: <Target size={48}/>, title: '4. Contacto Inteligente', desc: 'Genere borradores de email hiper-personalizados en segundos, utilizando los insights de la IA para maximizar la tasa de respuesta.'},
+    { icon: <Search />, title: '1. Defina Objetivo', desc: "Describa su cliente ideal. Ej: 'constructoras en Valencia con licitaciones >500k€'."},
+    { icon: <Filter />, title: '2. Búsqueda IA', desc: 'El sistema rastrea BOE, registros y prensa para encontrar coincidencias.'},
+    { icon: <Send />, title: '3. Cualificación IA', desc: 'Cada oportunidad es analizada con datos clave y contexto.'},
+    { icon: <Target />, title: '4. Contacto Inteligente', desc: 'Genere emails hiper-personalizados para maximizar la respuesta.'},
 ];
 
 export const Slide10_A: React.FC<SlideProps> = ({ isActive }) => {
     return (
-        <SlideWrapper className="p-16 justify-center">
+        <SlideWrapper className="p-24 justify-center bg-[#f7f8fa]">
+           <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-white to-transparent"></div>
+           <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white to-transparent"></div>
             <motion.div
+              className="relative"
               variants={containerVariants}
               initial="hidden"
               animate={isActive ? "visible" : "hidden"}
             >
               <motion.div variants={itemVariants}>
-                <h2 className="text-8xl font-bold tracking-tighter text-slate-900 mb-4 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>El Motor de Crecimiento Proactivo</h2>
-                <p className="text-3xl text-slate-600 mb-12 text-center">Convierta el mercado entero en su base de datos de clientes potenciales.</p>
+                <h2 className="text-[100px] font-black leading-none tracking-tighter text-slate-800 mb-6 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Motor de Crecimiento Proactivo</h2>
+                <p className="text-4xl text-slate-600 mb-20 text-center">Convierta el mercado en su base de datos.</p>
               </motion.div>
               <motion.div 
-                className="grid grid-cols-4 gap-10"
+                className="grid grid-cols-4 gap-8"
                 variants={{
                   visible: {
                     transition: { staggerChildren: 0.15 }
                   }
                 }}
               >
-                  {steps.map((step, i) => (
+                  {steps.map((step) => (
                       <motion.div 
                           key={step.title}
-                          className="bg-slate-50/50 rounded-xl p-8 border border-slate-200 text-center flex flex-col items-center hover:bg-white hover:shadow-lg transition-all"
+                          className="bg-white/80 backdrop-blur-sm rounded-3xl p-10 border text-center flex flex-col items-center hover:shadow-2xl transition-all duration-300"
+                          style={{ borderColor: 'rgba(255, 255, 255, 0.5)'}}
                           variants={itemVariants}
                       >
-                          <div className="w-24 h-24 flex items-center justify-center bg-cyan-500/10 text-cyan-500 rounded-lg mb-8">
-                              {step.icon}
+                          <div className="w-24 h-24 flex items-center justify-center bg-[#e0f5fe] text-[#00a9e0] rounded-2xl mb-8">
+                              {React.cloneElement(step.icon, { size: 56, strokeWidth: 1.5 })}
                           </div>
                           <h3 className="text-3xl font-bold text-slate-800 mb-5">{step.title}</h3>
-                          <p className="text-xl text-slate-600 flex-grow">{step.desc}</p>
+                          <p className="text-2xl text-slate-600 flex-grow">{step.desc}</p>
                       </motion.div>
                   ))}
               </motion.div>

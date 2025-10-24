@@ -44,7 +44,7 @@ export const Slide10_C: React.FC<SlideProps> = ({ isActive }) => {
             >
               <motion.div variants={itemVariants}>
                 <h2 className="text-7xl font-bold tracking-tighter text-slate-900 text-center mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>Análisis de Expediente Interactivo</h2>
-                <p className="text-3xl text-slate-600 mb-8 text-center">Conecte los puntos clave de miles de páginas, al instante.</p>
+                <p className="text-3xl text-slate-600 mb-8 text-center">Conecte puntos clave de miles de páginas.</p>
               </motion.div>
               
               <motion.div 
@@ -99,7 +99,7 @@ export const Slide10_C: React.FC<SlideProps> = ({ isActive }) => {
                                     >
                                         <p className="font-bold text-slate-800 text-2xl mb-2 flex items-center gap-3"><AlertTriangle/>Conflicto Detectado</p>
                                         <p className="text-slate-700 text-xl leading-relaxed">
-                                            Esta cláusula <strong className="font-semibold">contradice</strong> directamente la sección 2.A del <strong className="font-semibold">'Anexo II P.I.'</strong>, que estipula una propiedad compartida (50/50) post-transacción.
+                                            Esta cláusula contradice el <strong className="font-semibold">'Anexo II P.I.'</strong>, que estipula propiedad compartida (50/50).
                                         </p>
                                         <button className="mt-4 bg-white border border-slate-300 px-4 py-2 text-lg font-semibold rounded-md hover:bg-slate-100">Ver Anexo II</button>
                                     </motion.div>

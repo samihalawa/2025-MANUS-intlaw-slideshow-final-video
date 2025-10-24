@@ -7,16 +7,16 @@ interface SlideProps {
   isActive: boolean;
 }
 
-const ignacioPoints = [
-    { text: "Encuentre cualquier dato en expedientes de +3.000 folios, sin que la IA 'invente' respuestas." },
-    { text: <>Un Agente IA con 0% Alucinaciones (Garantizado) que <i>cita</i> cada una de sus fuentes.</> },
-    { text: "Genere clientes de alto valor en nichos específicos (inmobiliario, herencias) en lugar de depender del SEO." },
+const strategicPoints = [
+    { text: "Analice expedientes masivos con datos 100% verificables." },
+    { text: "Genere clientes proactivos en nichos de alto valor." },
+    { text: "Use un Agente IA con 0% alucinaciones garantizado." }
 ];
 
-const simonePoints = [
-    { text: "Automatice todo el flujo de captación: desde la consulta inicial hasta la recogida de documentos y la propuesta de honorarios." },
-    { text: "Integre un canal de captación inteligente en su web actual (compatible con WordPress)." },
-    { text: "Reduzca drásticamente el tiempo de redacción de documentos rutinarios (contratos, actas) con plantillas inteligentes." },
+const operationalPoints = [
+    { text: "Automatice el flujo de captación de clientes." },
+    { text: "Integre un asistente inteligente en su web." },
+    { text: "Reduzca el tiempo de redacción de documentos." },
 ];
 
 const containerVariants = {
@@ -73,15 +73,15 @@ export const Slide03_Analysis: React.FC<SlideProps> = ({ isActive }) => {
               animate={isActive ? "visible" : "hidden"}
             >
               <motion.div variants={itemVariants}>
-                <h2 className="text-8xl font-bold tracking-tighter text-slate-900 mb-4 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Una Solución a su Medida</h2>
-                <p className="text-3xl text-slate-600 mb-12 text-center">Hemos escuchado sus desafíos y diseñado una respuesta directa.</p>
+                <h2 className="text-8xl font-bold tracking-tighter text-slate-900 mb-4 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Una Solución a Medida</h2>
+                <p className="text-3xl text-slate-600 mb-12 text-center">Escuchamos sus desafíos y diseñamos una respuesta.</p>
               </motion.div>
               <motion.div 
                 className="grid grid-cols-2 gap-10"
                 variants={{ visible: { transition: { staggerChildren: 0.2 }}}}
               >
-                <Card title="Para el Área Legal y Estrategia (Ignacio)" points={ignacioPoints} icon={<Target size={40}/>} isActive={isActive} />
-                <Card title="Para la Operativa Diaria y Clientes (Simone)" points={simonePoints} icon={<Webhook size={40}/>} isActive={isActive} />
+                <Card title="Área Estratégica" points={strategicPoints} icon={<Target size={40}/>} isActive={isActive} />
+                <Card title="Operativa Diaria" points={operationalPoints} icon={<Webhook size={40}/>} isActive={isActive} />
               </motion.div>
             </motion.div>
         </SlideWrapper>

@@ -10,23 +10,23 @@ interface SlideProps {
 const guarantees = [
     {
         icon: <CheckSquare size={36} />,
-        title: "Pagos Vinculados a Verificación",
-        desc: "Cada pago se realiza únicamente tras la verificación y aceptación de la funcionalidad del hito correspondiente."
+        title: "Pagos Vinculados a Hitos",
+        desc: "Cada pago se realiza tras verificar el hito correspondiente."
     },
     {
         icon: <ShieldCheck size={36} />,
         title: "Garantía 0% Alucinaciones",
-        desc: "Si nuestro agente documental genera una alucinación, ofrecemos el reembolso total del módulo."
+        desc: "Si el agente IA alucina, reembolsamos el módulo."
     },
     {
         icon: <Clock size={36} />,
-        title: "Compromiso con los Plazos",
-        desc: "Aplicamos una penalización del 10% sobre el valor del hito por cada semana de retraso en la entrega."
+        title: "Compromiso con Plazos",
+        desc: "Penalización del 10% por cada semana de retraso."
     },
     {
         icon: <Handshake size={36} />,
-        title: "Soporte Continuo Incluido",
-        desc: "La asociación incluye 12 meses de soporte proactivo y optimización para maximizar el valor."
+        title: "Soporte Continuo",
+        desc: "Incluye 12 meses de soporte proactivo y optimización."
     },
 ];
 
@@ -50,7 +50,7 @@ export const Slide15_Assurance: React.FC<SlideProps> = ({ isActive }) => {
             >
               <motion.div variants={itemVariants}>
                 <h2 className="text-7xl font-bold tracking-tighter text-slate-900 mb-10 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>Garantías de Valor</h2>
-                <p className="text-2xl text-slate-600 mb-12 text-center max-w-5xl mx-auto">Un marco de garantías explícitas que protege su inversión en cada paso.</p>
+                <p className="text-2xl text-slate-600 mb-12 text-center max-w-5xl mx-auto">Garantías explícitas que protegen su inversión.</p>
               </motion.div>
               
               <motion.div 
